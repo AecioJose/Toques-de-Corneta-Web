@@ -277,7 +277,13 @@
         let toneOrder = JSON.parse(localStorage.getItem('toneOrder')) || selectedTones.slice(); // Inicialmente, a ordem segue a seleção
 
         let currentAudio = null;
-        let isAudioPlaying = false;
+        let audioGlobal = new Audio();
+
+        audioGlobal.addEventListener('canplay', (event) => {
+            event.target.play()
+        })
+
+
 
         // Dados dos toques (imagens e áudios) - Edite os caminhos conforme necessário
         const tones = [
@@ -373,7 +379,7 @@
                 if (isAddingTones) {
                     button.addEventListener('click', () => toggleToneSelection(tone.id));
                 } else {
-                    button.addEventListener('click', () => playTone(tone));
+                    button.addEventListener('click', () => playTone(tone.audio));
                 }
 
                 // Eventos de drag and drop
@@ -389,29 +395,30 @@
             });
         }
 
-        // Função para tocar o áudio do toque
-        function playTone(tone) {
-            if (isAudioPlaying) return; // Bloquear se um áudio já estiver tocando
 
-            currentAudio = new Audio(tone.audio);
-            isAudioPlaying = true;
-            currentAudio.play();
+        function playTone(audioPath) {
 
-            currentAudio.addEventListener('ended', () => {
-                isAudioPlaying = false;
-                currentAudio = null;
-            });
+            if (!audioGlobal.paused) {
+                console.log("Is Playing")
+                return
+            } else if (audioGlobal.src.substring(audioGlobal.src.lastIndexOf('/') + 1) === audioPath.substring(audioPath.lastIndexOf('/') + 1) && audioGlobal.paused) {
+                console.log(`Play! src is ${audioPath}`)
+                audioGlobal.play()
+                return
+            }
+            
+            audioGlobal.src = audioPath
         }
 
+        
         // Pausar o áudio ao pressionar a barra de espaço
         document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space' && currentAudio && isAudioPlaying) {
+            if (e.code === 'Space') {
                 event.preventDefault();
-                currentAudio.pause();
-                isAudioPlaying = false;
-                currentAudio = null;
+                audioGlobal.pause();
             }
         });
+
 
         // Função para alternar a seleção de um toque
         function toggleToneSelection(toneId) {
@@ -461,7 +468,7 @@
             saveToLocalStorage();
         }
 
-        // Eventos dos botões de ação
+        // Botoes de editar/mudar posição e adicionar toques
         addTonesBtn.addEventListener('click', () => {
             isAddingTones = !isAddingTones;
             if (isAddingTones) {
