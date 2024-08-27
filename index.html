@@ -481,11 +481,6 @@
         editBtnNchangeOrder.addEventListener('click', () => {
             isChangingOrder = !isChangingOrder;
             if (isChangingOrder) {
-                if (selectedTones.length === 0) {
-                    alert('Nenhum toque selecionado para mudar a ordem.');
-                    isChangingOrder = false;
-                    return;
-                }
                 isAddingTones = false;
                 addTonesBtn.style.display = 'none';
                 editBtnNchangeOrder.classList.add('active');
