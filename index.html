@@ -404,7 +404,8 @@
                 return
             } else if (audioGlobal.src.substring(audioGlobal.src.lastIndexOf('/') + 1) === audioPath.substring(audioPath.lastIndexOf('/') + 1) && audioGlobal.paused) {
                 console.log(`Play! src is ${audioPath}`)
-                audioGlobal.play()
+                audioGlobal.currentTime = 0;
+                audioGlobal.play();
                 return
             }
             
