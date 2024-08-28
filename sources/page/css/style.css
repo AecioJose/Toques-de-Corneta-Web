@@ -57,6 +57,7 @@ main {
     position: relative;
     z-index: 2;
     gap: 8px;
+    padding-top: 8px;
 }
 
 .tone-button {
