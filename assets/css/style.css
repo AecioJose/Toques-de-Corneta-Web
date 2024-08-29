@@ -12,6 +12,12 @@ body {
     font-family: "Spline Sans Mono", Arial, sans-serif;
     margin: 0;
     height: 100dvh;
+
+    background-image: url("/assets/images/backgrounds/background.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: 23%;
     
 }
 
@@ -38,11 +44,7 @@ main {
     height: auto;
     min-height: 100vh;
     padding-top: 8vh;
-    background-image: url("/assets/images/backgrounds/background.jpg");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position-x: 23%;
+    
 }
 
 .sombra {
@@ -126,6 +128,7 @@ main {
     z-index: 2;
 
     height: 10vw;
+    padding: 50px 0;
     margin-top: auto;
     margin-bottom: auto;
 }
@@ -166,8 +169,7 @@ main {
 
 
 
-#add-tones-btn,
-#add-tones-btn.active {
+#add-tones-btn, #add-tones-btn.active {
     width: 14vw;
     height: 4vw;
     margin-right: 2vw;
@@ -215,11 +217,10 @@ main {
         padding-top: 7vh;
     }
 
-    #edit-btn {
-        width: 9vw;
-        height: 9vw;
+    #edit-btn, #add-tones-btn.active {
+        width: 11vw;
+        height: 11vw;
         margin-right: 15px;
-        margin-top: 12px;
     }
 }
 
