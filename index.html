@@ -1,296 +1,210 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toques de Corneta</title>
-    <link rel="icon" href="/assets/images/icons/corneta.ico" type="image/x-icon">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta charset="utf-8" />
+    <title>Web Audio API examples: Basics</title>
+    <meta name="description" content="Audio basics demo for Web Audio API" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <script src="script.js"></script>
 </head>
+
 <body>
+    <input type="file" id="file">
+    <div id="boombox">
+        <div class="boombox-handle"></div>
 
-    <header>
-        <div class="monitorPFL">
+        <div class="boombox-body">
+            <section class="master-controls">
+                <input type="range" id="volume" min="0" max="2" value="1" step="0.01">
 
+                <label for="volume">VOL</label>
+
+                <input type="range" id="panner" min="-1" max="1" value="0" step="0.01" />
+
+                <label for="panner">PAN</label>
+
+            </section>
+            <button onclick="playpause()">PLAY/PAUSE</button>
+            <canvas id="audioCanvas"></canvas>
         </div>
+        <!-- boombox-body -->
+    </div>
 
-        
-        <span style="display: flex; flex-direction: row; align-items: center; justify-content: center;" >Toques De Corneta <img style="margin-left: 15px; width: 50px;" src="assets/images/icons/corneta.ico" alt="Minha Figura"> </span>
-        
+    <script type="text/javascript">
+        console.clear();
 
-        <div><!--Menuzinho de playlist com ultima opção de adicionar nova playlist-->
+        // instigate our audio context
+        let audioCtx;
+        const audioControler = new AudioControler()
 
-        </div>
-    </header>
+        // load some sound
+        const audioElement = document.querySelector("audio");
+        const fileElement = document.querySelector("#file");
+        const volumeControl = document.querySelector('#volume');
+        const pannerControl = document.querySelector('#panner');
 
-    <main>
-        <div class="sombra"></div>
 
-        <div id="button-container">
-            <!-- Botões de toques serão gerados aqui -->
-        </div>
-
-        
-
-        <div class="actions">
-            <button id="add-tones-btn">Adicionar Toques <span style="font-size: 3vw; margin-left: 0.5vw;">+</span></button>
-            <button id="edit-btn"><img id="edit-img" src="/assets/images/icons/pencil.png" alt="Imagem de lapis representando que ao clicar aqui você edita os cards"></button>
-        </div>
-        
-    </main>
-    <!--
-    <script>
-        // Selecionando elementos do DOM
-        const buttonContainer = document.getElementById('button-container');
-        const addTonesBtn = document.getElementById('add-tones-btn');
-        const editBtnNchangeOrder = document.getElementById('edit-btn');
-        const changeOrderImg = document.getElementById('edit-img');
-
-        // Estados da aplicação
-        let isAddingTones = false;
-        let isChangingOrder = false;
-        let selectedTones = JSON.parse(localStorage.getItem('selectedTones')) || [];
-        let toneOrder = JSON.parse(localStorage.getItem('toneOrder')) || selectedTones.slice(); // Inicialmente, a ordem segue a seleção
-
-        let audioGlobal = new Audio();
-
-        audioGlobal.addEventListener('canplay', (event) => {
-            event.target.play()
+        fileElement.addEventListener("change", (e) => {
+            audioControler.initialize()
+            audioControler.setSource(URL.createObjectURL(e.target.files[0]))
         })
 
+        volumeControl.addEventListener(
+            "input",
+            (event) => {
+                audioControler.setVol(event.target.value)
+            },
+            false
+        );
 
+        pannerControl.addEventListener(
+            "input",
+            (event) => {
+                audioControler.setPan(event.target.value)
+            },
+            false
+        );
 
-        // Dados dos toques (imagens e áudios) - Edite os caminhos conforme necessário
-        const tones = [
-            { id: 1, name: "Sentido", image: "assets/images/cards/sentido.png", audio: "assets/audio/sentido.mp3" },
-            { id: 2, name: "Descansar", image: "assets/images/cards/descansar.png", audio: "assets/audio/Descansar.mp3" },
-            { id: 3, name: "Direita Volver", image: "assets/images/cards/direitavolver.png", audio: "assets/audio/direita_volver.mp3" },
-            { id: 4, name: "Esquerda Volver", image: "assets/images/cards/esquerdavolver.png", audio: "assets/audio/esquerda_volver.mp3" },
-
-            { id: 5, name: "Meia Volta volver", image: "assets/images/cards/meiavoltavolver.png", audio: "assets/audio/Meia_Volta_volver.mp3" },
-
-            { id: 6, name: "Cobrir", image: "assets/images/cards/cobrir.png", audio: "assets/audio/cobrir.mp3" },
-            { id: 7, name: "Firme", image: "assets/images/cards/firme.png", audio: "assets/audio/firme.mp3" },
-            { id: 8, name: "Ultima Forma", image: "assets/images/cards/ultimaForma.png", audio: "assets/audio/ultima_forma.mp3" },
-            { id: 9, name: "À Vontade", image: "assets/images/cards/avontade.png", audio: "assets/audio/a_vontade.mp3" },
-            { id: 10, name: "Cessar à Vontade", image: "assets/images/cards/cessaravontade.png", audio: "assets/audio/cessarAvontade.mp3" },
-
-            { id: 11, name: "Ordinario Marche", image: "assets/images/cards/ordinarioMarche.png", audio: "assets/audio/ordinarioMarche.mp3" },
-            { id: 12, name: "Marcar Passo", image: "assets/images/cards/marcapasso.png", audio: "assets/audio/marcar_passo.mp3" },
-            { id: 13, name: "Alto", image: "assets/images/cards/alto.png", audio: "assets/audio/alto.mp3" },
-            
-            { id: 14, name: "Ombro Arma", image: "assets/images/cards/ombroarma.png", audio: "assets/audio/ombro_arma.mp3" },
-            { id: 15, name: "Cruzar Arma", image: "assets/images/cards/cruzararma.png", audio: "assets/audio/cruzar_arma.mp3" },
-            { id: 16, name: "Apresentar Arma", image: "assets/images/cards/apresentarArma.png", audio: "assets/audio/apresentar_arma.mp3" },
-            { id: 17, name: "Amar Baioneta", image: "assets/images/cards/armarbaioneta.png", audio: "assets/audio/Armar_Baioneta.mp3" },
-            { id: 18, name: "Desarmar Baioneta", image: "assets/images/cards/desarmarbaioneta.png", audio: "assets/audio/Desarmar_Baioneta.mp3" },
-            { id: 19, name: "Descansar Arma", image: "assets/images/cards/descansararma.png", audio: "assets/audio/descansar_arma.mp3" },
-            { id: 20, name: "Arma Suspensa!!", image: "assets/images/cards/armasuspensa.png", audio: "assets/audio/audio24.mp3" },/*audio*/
-            { id: 21, name: "Arma Na Mão!!", image: "assets/images/cards/armanamao.png", audio: "assets/audio/audio25.mp3" },/*audio*/
-            { id: 22, name: "Ao Solo Arma!!", image: "assets/images/cards/aosoloarma.png", audio: "assets/audio/audio24.mp3" },/*audio*/
-            
-            { id: 23, name: "Alvorada", image: "assets/images/cards/alvorada.png", audio: "assets/audio/alvorada.mp3" },
-            
-            
-            { id: 24, name: "Hino do Brasil", image: "assets/images/cards/brasil.png", audio: "assets/audio/HinoNacionalBrasileiro.mp3" },
-            { id: 25, name: "Canção Do Exército", image: "assets/images/cards/cancaoexercito.jpg", audio: "assets/audio/CançãodoExército.mp3" },
-            { id: 26, name: "Hino a caxias", image: "assets/images/cards/caxias.jpg", audio: "assets/audio/hinoacaxias.mp3" },
-            { id: 27, name: "Incorporação da Bandeira", image: "assets/images/cards/incorpbandeira.png", audio: "assets/audio/IncorporaçãodaBandeira.mp3" },
-
-            
-            { id: 28, name: "Exórdio Juramento", image: "assets/images/cards/notamusical.png", audio: "assets/audio/ExórdioJuramento.mp4" },
-            { id: 29, name: "Quatro Dias de Viagem", image: "assets/images/cards/notamusical.png", audio: "assets/audio/QuatroDiasdeViagem.mp3" },
-            { id: 30, name: "Velhos Camaradas", image: "assets/images/cards/notamusical.png", audio: "assets/audio/Velhoscamaradas.mp3" },
-            { id: 31, name: "Avante Camaradas com Bumbo", image: "assets/images/cards/ordinarioMarcheDobrado.png", audio: "assets/audio/AvanteCamaradasComBumbo.mp3" },
-            { id: 32, name: "Batista de Melo", image: "assets/images/cards/ordinarioMarcheDobrado.png", audio: "assets/audio/batistademelo.mp3" },
-            { id: 33, name: "Hino Nacional Instrumental", image: "assets/images/cards/brasil.png", audio: "assets/audio/HinoNacional-Instrumental.mp3" },
-            { id: 34, name: "Continencia Bandeira + Apresentar Arma", image: "assets/images/cards/notamusical.png", audio: "assets/audio/Emcontinenciaabandeiracomapresentararma.mp3" },
-            { id: 35, name: "Bandeira Avançar", image: "assets/images/cards/notamusical.png", audio: "assets/audio/BandeiraAvancar.mp3" },
-            
-            { id: 36, name: "Toque 36", image: "assets/images/cards/img.png", audio: "assets/audio/audio36.mp3" },
-            { id: 37, name: "Toque 37", image: "assets/images/cards/image.png", audio: "assets/audio/audio37.mp3" },
-	        { id: 38, name: "Toque 38", image: "assets/images/cards/image.png", audio: "assets/audio/audio38.mp3" },
-            { id: 39, name: "Toque 39", image: "assets/images/cards/image.png", audio: "assets/audio/audio39.mp3" },
-            { id: 40, name: "Toque 40", image: "assets/images/cards/image.png", audio: "assets/audio/audio40.mp3" }]
-        
-
-        // Função para salvar seleção e ordem no localStorage
-        function saveToLocalStorage() {
-            localStorage.setItem('selectedTones', JSON.stringify(selectedTones));
-            localStorage.setItem('toneOrder', JSON.stringify(toneOrder));
-        }
-
-        // Função para renderizar os botões de toques
-        function renderTones() {
-            buttonContainer.innerHTML = '';
-
-            // Determinar quais toques serão exibidos
-            let tonesToDisplay = [];
-
-            if (isAddingTones) {
-                // Exibe todos os toques, com os não selecionados no final
-                tonesToDisplay = tones.filter(tone => !selectedTones.includes(tone.id));
-                tonesToDisplay = [...selectedTones.map(id => tones.find(t => t.id === id)), ...tonesToDisplay];
+        function playpause() {
+            if (audioControler.audioElement.paused) {
+                audioControler.play()
             } else {
-                // Exibe apenas os toques na ordem definida
-                tonesToDisplay = toneOrder.map(id => tones.find(tone => tone.id === id));
+                audioControler.pause()
+            }
+        }
+
+        const canvas = document.getElementById('audioCanvas');
+        const canvasCtx = canvas.getContext('2d');
+
+        function draw() {
+            requestAnimationFrame(draw);
+
+            const dataArray = audioControler.getByteFrequencyData();
+            const bufferLength = dataArray.length
+            canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+            canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const barWidth = (canvas.width / bufferLength) * 2.5;
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                let barHeight = dataArray[i];
+                canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',50,50)';
+                canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);
+
+                x += barWidth + 1;
             }
 
-            tonesToDisplay.forEach(tone => {
-                const button = document.createElement('div');
-                button.classList.add('tone-button');
-                button.dataset.id = tone.id;
+            // const leftDataArray = audioControler.getByteFrequencyDataL()
+            // const rightDataArray = audioControler.getByteFrequencyDataL()
+            // const barWidth = (canvas.width / 2 / leftDataArray.length) * 2.5;
+            // // Visualização do canal esquerdo
+            // canvasCtx.fillStyle = 'rgb(0, 0, 255)'; // Azul para o canal esquerdo
+            // x = 0;
+            // for (let i = 0; i < leftDataArray.length; i++) {
+            //     let barHeight = leftDataArray[i];
+            //     canvasCtx.fillRect(x, 0, barWidth, barHeight);
+            //     x += barWidth + 1;
+            // }
 
-                // Adicionar classe 'selected' se o toque estiver selecionado
-                if (selectedTones.includes(tone.id)) {
-                    button.classList.add('selected');
-                }
-
-                button.innerHTML = `
-                    <img src="${tone.image}" alt="${tone.name}">
-                    <span>${tone.name}</span>
-                `;
-
-                // Eventos de clique
-                if (isAddingTones) {
-                    button.addEventListener('click', () => toggleToneSelection(tone.id));
-                } else {
-                    button.addEventListener('click', () => playTone(tone.audio));
-                }
-
-                // Eventos de drag and drop
-                if (isChangingOrder) {
-                    button.setAttribute('draggable', true);
-                    button.addEventListener('dragstart', dragStart);
-                    button.addEventListener('dragover', dragOver);
-                    button.addEventListener('drop', drop);
-                    button.addEventListener('dragend', dragEnd);
-                }
-
-                buttonContainer.appendChild(button);
-            });
+            // // Visualização do canal direito
+            // canvasCtx.fillStyle = 'rgb(255, 0, 0)'; // Vermelho para o canal direito
+            // x = canvas.width / 2;
+            // for (let i = 0; i < rightDataArray.length; i++) {
+            //     let barHeight = rightDataArray[i];
+            //     canvasCtx.fillRect(x, 0, barWidth, barHeight);
+            //     x += barWidth + 1;
+            // }
         }
 
+        draw();
 
-        function playTone(audioPath) {
+        // let track;
 
-            if (!audioGlobal.paused) {
-                console.log("Is Playing")
-                return
-            } else if (audioGlobal.src.substring(audioGlobal.src.lastIndexOf('/') + 1) === audioPath.substring(audioPath.lastIndexOf('/') + 1) && audioGlobal.paused) {
-                console.log(`Play! src is ${audioPath}`)
-                audioGlobal.currentTime = 0;
-                audioGlobal.play();
-                return
-            }
-            
-            audioGlobal.src = audioPath
-        }
+        // const playButton = document.querySelector(".tape-controls-play");
 
-        
-        // Pausar o áudio ao pressionar a barra de espaço
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
-                event.preventDefault();
-                audioGlobal.pause();
-            }
-        });
+        // // play pause audio
+        // fileElement.addEventListener("change", (e) => {
+        //     audioElement.src = URL.createObjectURL(e.target.files[0])
 
+        //     playButton.addEventListener(
+        //         "click",
+        //         () => {
+        //             if (!audioCtx) {
+        //                 init();
+        //             }
 
-        // Função para alternar a seleção de um toque
-        function toggleToneSelection(toneId) {
-            if (selectedTones.includes(toneId)) {
-                selectedTones = selectedTones.filter(id => id !== toneId);
-                toneOrder = toneOrder.filter(id => id !== toneId);
-            } else {
-                selectedTones.push(toneId);
-                toneOrder.splice(selectedTones.length - 1, 0, toneId); // Move para o final dos selecionados
-            }
+        //             // check if context is in suspended state (autoplay policy)
+        //             if (audioCtx.state === "suspended") {
+        //                 audioCtx.resume();
+        //             }
 
-            renderTones();
-            saveToLocalStorage();
-        }
+        //             if (playButton.dataset.playing === "false") {
+        //                 audioElement.play();
+        //                 playButton.dataset.playing = "true";
+        //                 // if track is playing pause it
+        //             } else if (playButton.dataset.playing === "true") {
+        //                 audioElement.pause();
+        //                 playButton.dataset.playing = "false";
+        //             }
 
-        // Variáveis para drag and drop
-        let draggedToneId = null;
+        //             // Toggle the state between play and not playing
+        //             let state =
+        //                 playButton.getAttribute("aria-checked") === "true" ? true : false;
+        //             playButton.setAttribute("aria-checked", state ? "false" : "true");
+        //         },
+        //         false
+        //     );
 
-        function dragStart(e) {
-            draggedToneId = Number(e.currentTarget.dataset.id);
-            e.currentTarget.classList.add('dragging');
-        }
+        // })
 
-        function dragOver(e) {
-            e.preventDefault();
-            const target = e.currentTarget;
-            const targetToneId = Number(target.dataset.id);
+        // // If track ends
+        // audioElement.addEventListener(
+        //     "ended",
+        //     () => {
+        //         playButton.dataset.playing = "false";
+        //         playButton.setAttribute("aria-checked", "false");
+        //     },
+        //     false
+        // );
 
-            if (draggedToneId === targetToneId) return;
+        // function init() {
+        //     audioCtx = new AudioContext();
+        //     track = new MediaElementAudioSourceNode(audioCtx, {
+        //         mediaElement: audioElement,
+        //     });
 
-            const draggedIndex = toneOrder.indexOf(draggedToneId);
-            const targetIndex = toneOrder.indexOf(targetToneId);
+        //     // Create the node that controls the volume.
+        //     const gainNode = new GainNode(audioCtx);
 
-            toneOrder.splice(draggedIndex, 1);
-            toneOrder.splice(targetIndex, 0, draggedToneId);
+        //     const volumeControl = document.querySelector('[data-action="volume"]');
+        //     volumeControl.addEventListener(
+        //         "input",
+        //         () => {
+        //             gainNode.gain.value = volumeControl.value;
+        //         },
+        //         false
+        //     );
 
-            renderTones();
-        }
+        //     // Create the node that controls the panning
+        //     const panner = new StereoPannerNode(audioCtx, { pan: 0 });
 
-        function drop(e) {
-            e.currentTarget.classList.remove('dragging');
-            saveToLocalStorage();
-        }
+        //     const pannerControl = document.querySelector('[data-action="panner"]');
+        //     pannerControl.addEventListener(
+        //         "input",
+        //         () => {
+        //             panner.pan.value = pannerControl.value;
+        //         },
+        //         false
+        //     );
 
-        function dragEnd(e) {
-            e.currentTarget.classList.remove('dragging');
-            saveToLocalStorage();
-        }
+        //     // connect our graph
+        //     track.connect(gainNode).connect(panner).connect(audioCtx.destination);
+        // }
 
-        // Botoes de editar/mudar posição e adicionar toques
-        addTonesBtn.addEventListener('click', () => {
-            isAddingTones = !isAddingTones;
-            if (isAddingTones) {
-                isChangingOrder = false;
-                editBtnNchangeOrder.style.display = 'none';
-                addTonesBtn.classList.add('active');
-                addTonesBtn.innerHTML = '<img style="width: 65%; height: auto;" src="/assets/images/icons/white-check.png">';
-            } else {
-                isChangingOrder = true;
-                addTonesBtn.classList.remove('active');
-                addTonesBtn.innerHTML = 'Adicionar Toques <span style="font-size: 3vw; margin-left: 0.5vw;">+</span>';
-                editBtnNchangeOrder.style.display = 'inline-block';
-            }
-            renderTones();
-        });
-
-        editBtnNchangeOrder.addEventListener('click', () => {
-            isChangingOrder = !isChangingOrder;
-            if (isChangingOrder) {
-                isAddingTones = false;
-                addTonesBtn.style.display = 'none';
-                editBtnNchangeOrder.classList.add('active');
-                changeOrderImg.src = "/assets/images/icons/white-check.png";
-                addTonesBtn.style.display = 'flex';
-            } else {
-                editBtnNchangeOrder.classList.remove('active');
-                changeOrderImg.src = "/assets/images/icons/pencil.png";
-                addTonesBtn.style.display = 'none';
-            }
-            renderTones();
-        });
-
-        // Renderizar toques na inicialização
-        renderTones();
+        // Track credit: Outfoxing the Fox by Kevin MacLeod under Creative Commons
     </script>
-    -->
-
-    <script type="module" src="/js/main.js"></script>
-
-
-
 </body>
+
 </html>
