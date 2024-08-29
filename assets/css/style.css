@@ -88,8 +88,46 @@ main {
     color: #000;
 }
 
+.editMoveCard {
+    width: 97%;
+    height: 18%;
+    position: absolute;
+    top: 2%;
+    margin: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* background: red; */
+}
+
+.editMoveCard-pencil, .editMoveCard-MoveIcon {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.editMoveCard-MoveIcon {
+    background-image: url("/assets/images/icons/move_icon.png");
+    
+}
+
+.editMoveCard-pencil {
+    background-image: url("/assets/images/icons/pencil.png");
+    background-size: 50%;
+    background-position: 20% 20%;
+}
+
+
+.img-container {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+}
+
 .tone-button span {
-    height: 40%;
+    /* height: 40%; */
     width: 100%;
     text-align: center;
     text-size-adjust: 50%;
@@ -101,9 +139,7 @@ main {
     font-size: 1.08vw;
 }
 
-.tone-button img {
-    height: 60%;
-}
+
 
 .tone-button.selected {
     background: rgba(255, 255, 255, 0.55);
@@ -116,7 +152,7 @@ main {
 
 
 .tone-button.dragging {
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 

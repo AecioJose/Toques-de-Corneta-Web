@@ -56,9 +56,21 @@ export function renderTones() {
         }
 
         button.innerHTML = `
-            <img src="${tone.image}" alt="${tone.name}">
+            <div class="editMoveCard" > 
+                <div class="editMoveCard-pencil" alt="lapis para editar card"></div>
+                <div class="editMoveCard-MoveIcon" alt="icone indicando que pode mover o card de lugar"></div> 
+            </div>
+            <div id="img${tone.id}" class="img-container"></div>
             <span>${tone.name}</span>
         `;
+        const img = button.querySelector(`#img${tone.id}`)
+        img.style.backgroundImage = `url('${tone.image}')`;
+        img.style.backgroundRepeat = "no-repeat";
+        img.style.backgroundSize = "contain";
+        img.style.backgroundPosition = "50% 50%"
+
+        
+        
 
         // Eventos de clique
         if (isAddingTones) {
@@ -74,6 +86,17 @@ export function renderTones() {
             button.addEventListener('dragover', dragOver);
             button.addEventListener('drop', drop);
             button.addEventListener('dragend', dragEnd);
+
+            button.addEventListener('touchstart', dragStart);
+            button.addEventListener('touchmove', dragOver);  // Permiti que o item siga o dedo durante o toque
+            button.addEventListener('touchend', dragEnd);
+            
+            //Ativando icones de mover e editar card quando o editButton for ativado
+            button.querySelector('.editMoveCard').style.display = 'flex';
+
+        } else {
+            //Desativando icones de mover e editar card
+            button.querySelector('.editMoveCard').style.display = 'none';
         }
 
         buttonContainer.appendChild(button);
