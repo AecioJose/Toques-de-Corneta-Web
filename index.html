@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toques de Corneta</title>
-    <link rel="icon" href="sources/assets/imgs_icons/corneta.ico" type="image/x-icon">
+    <link rel="icon" href="/assets/images/icons/corneta.ico" type="image/x-icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="./sources/page/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
@@ -20,7 +20,7 @@
         </div>
 
         
-        <span style="display: flex; flex-direction: row; align-items: center; justify-content: center;" >Toques De Corneta <img style="margin-left: 15px; width: 50px;" src="sources/assets/imgs_icons/corneta.ico" alt="Minha Figura"> </span>
+        <span style="display: flex; flex-direction: row; align-items: center; justify-content: center;" >Toques De Corneta <img style="margin-left: 15px; width: 50px;" src="assets/images/icons/corneta.ico" alt="Minha Figura"> </span>
         
 
         <div><!--Menuzinho de playlist com ultima opção de adicionar nova playlist-->
@@ -39,11 +39,11 @@
 
         <div class="actions">
             <button id="add-tones-btn">Adicionar Toques <span style="font-size: 3vw; margin-left: 0.5vw;">+</span></button>
-            <button id="edit-btn"><img id="edit-img" src="sources/assets/imgs_icons/pencil.png" alt="Imagem de lapis representando que ao clicar aqui você edita os cards"></button>
+            <button id="edit-btn"><img id="edit-img" src="/assets/images/icons/pencil.png" alt="Imagem de lapis representando que ao clicar aqui você edita os cards"></button>
         </div>
         
     </main>
-
+    <!--
     <script>
         // Selecionando elementos do DOM
         const buttonContainer = document.getElementById('button-container');
@@ -57,7 +57,6 @@
         let selectedTones = JSON.parse(localStorage.getItem('selectedTones')) || [];
         let toneOrder = JSON.parse(localStorage.getItem('toneOrder')) || selectedTones.slice(); // Inicialmente, a ordem segue a seleção
 
-        let currentAudio = null;
         let audioGlobal = new Audio();
 
         audioGlobal.addEventListener('canplay', (event) => {
@@ -68,56 +67,56 @@
 
         // Dados dos toques (imagens e áudios) - Edite os caminhos conforme necessário
         const tones = [
-            { id: 1, name: "Sentido", image: "sources/assets/imgs_cards/sentido.png", audio: "sources/audio/sentido.mp3" },
-            { id: 2, name: "Descansar", image: "sources/assets/imgs_cards/descansar.png", audio: "sources/audio/Descansar.mp3" },
-            { id: 3, name: "Direita Volver", image: "sources/assets/imgs_cards/direitavolver.png", audio: "sources/audio/direita_volver.mp3" },
-            { id: 4, name: "Esquerda Volver", image: "sources/assets/imgs_cards/esquerdavolver.png", audio: "sources/audio/esquerda_volver.mp3" },
+            { id: 1, name: "Sentido", image: "assets/images/cards/sentido.png", audio: "assets/audio/sentido.mp3" },
+            { id: 2, name: "Descansar", image: "assets/images/cards/descansar.png", audio: "assets/audio/Descansar.mp3" },
+            { id: 3, name: "Direita Volver", image: "assets/images/cards/direitavolver.png", audio: "assets/audio/direita_volver.mp3" },
+            { id: 4, name: "Esquerda Volver", image: "assets/images/cards/esquerdavolver.png", audio: "assets/audio/esquerda_volver.mp3" },
 
-            { id: 5, name: "Meia Volta volver", image: "sources/assets/imgs_cards/meiavoltavolver.png", audio: "sources/audio/Meia_Volta_volver.mp3" },
+            { id: 5, name: "Meia Volta volver", image: "assets/images/cards/meiavoltavolver.png", audio: "assets/audio/Meia_Volta_volver.mp3" },
 
-            { id: 6, name: "Cobrir", image: "sources/assets/imgs_cards/cobrir.png", audio: "sources/audio/cobrir.mp3" },
-            { id: 7, name: "Firme", image: "sources/assets/imgs_cards/firme.png", audio: "sources/audio/firme.mp3" },
-            { id: 8, name: "Ultima Forma", image: "sources/assets/imgs_cards/ultimaForma.png", audio: "sources/audio/ultima_forma.mp3" },
-            { id: 9, name: "À Vontade", image: "sources/assets/imgs_cards/avontade.png", audio: "sources/audio/a_vontade.mp3" },
-            { id: 10, name: "Cessar à Vontade", image: "sources/assets/imgs_cards/cessaravontade.png", audio: "sources/audio/cessarAvontade.mp3" },
+            { id: 6, name: "Cobrir", image: "assets/images/cards/cobrir.png", audio: "assets/audio/cobrir.mp3" },
+            { id: 7, name: "Firme", image: "assets/images/cards/firme.png", audio: "assets/audio/firme.mp3" },
+            { id: 8, name: "Ultima Forma", image: "assets/images/cards/ultimaForma.png", audio: "assets/audio/ultima_forma.mp3" },
+            { id: 9, name: "À Vontade", image: "assets/images/cards/avontade.png", audio: "assets/audio/a_vontade.mp3" },
+            { id: 10, name: "Cessar à Vontade", image: "assets/images/cards/cessaravontade.png", audio: "assets/audio/cessarAvontade.mp3" },
 
-            { id: 11, name: "Ordinario Marche", image: "sources/assets/imgs_cards/ordinarioMarche.png", audio: "sources/audio/ordinarioMarche.mp3" },
-            { id: 12, name: "Marcar Passo", image: "sources/assets/imgs_cards/marcapasso.png", audio: "sources/audio/marcar_passo.mp3" },
-            { id: 13, name: "Alto", image: "sources/assets/imgs_cards/alto.png", audio: "sources/audio/alto.mp3" },
+            { id: 11, name: "Ordinario Marche", image: "assets/images/cards/ordinarioMarche.png", audio: "assets/audio/ordinarioMarche.mp3" },
+            { id: 12, name: "Marcar Passo", image: "assets/images/cards/marcapasso.png", audio: "assets/audio/marcar_passo.mp3" },
+            { id: 13, name: "Alto", image: "assets/images/cards/alto.png", audio: "assets/audio/alto.mp3" },
             
-            { id: 14, name: "Ombro Arma", image: "sources/assets/imgs_cards/ombroarma.png", audio: "sources/audio/ombro_arma.mp3" },
-            { id: 15, name: "Cruzar Arma", image: "sources/assets/imgs_cards/cruzararma.png", audio: "sources/audio/cruzar_arma.mp3" },
-            { id: 16, name: "Apresentar Arma", image: "sources/assets/imgs_cards/apresentarArma.png", audio: "sources/audio/apresentar_arma.mp3" },
-            { id: 17, name: "Amar Baioneta", image: "sources/assets/imgs_cards/armarbaioneta.png", audio: "sources/audio/Armar_Baioneta.mp3" },
-            { id: 18, name: "Desarmar Baioneta", image: "sources/assets/imgs_cards/desarmarbaioneta.png", audio: "sources/audio/Desarmar_Baioneta.mp3" },
-            { id: 19, name: "Descansar Arma", image: "sources/assets/imgs_cards/descansararma.png", audio: "sources/audio/descansar_arma.mp3" },
-            { id: 20, name: "Arma Suspensa!!", image: "sources/assets/imgs_cards/armasuspensa.png", audio: "sources/audio/audio24.mp3" },/*audio*/
-            { id: 21, name: "Arma Na Mão!!", image: "sources/assets/imgs_cards/armanamao.png", audio: "sources/audio/audio25.mp3" },/*audio*/
-            { id: 22, name: "Ao Solo Arma!!", image: "sources/assets/imgs_cards/aosoloarma.png", audio: "sources/audio/audio24.mp3" },/*audio*/
+            { id: 14, name: "Ombro Arma", image: "assets/images/cards/ombroarma.png", audio: "assets/audio/ombro_arma.mp3" },
+            { id: 15, name: "Cruzar Arma", image: "assets/images/cards/cruzararma.png", audio: "assets/audio/cruzar_arma.mp3" },
+            { id: 16, name: "Apresentar Arma", image: "assets/images/cards/apresentarArma.png", audio: "assets/audio/apresentar_arma.mp3" },
+            { id: 17, name: "Amar Baioneta", image: "assets/images/cards/armarbaioneta.png", audio: "assets/audio/Armar_Baioneta.mp3" },
+            { id: 18, name: "Desarmar Baioneta", image: "assets/images/cards/desarmarbaioneta.png", audio: "assets/audio/Desarmar_Baioneta.mp3" },
+            { id: 19, name: "Descansar Arma", image: "assets/images/cards/descansararma.png", audio: "assets/audio/descansar_arma.mp3" },
+            { id: 20, name: "Arma Suspensa!!", image: "assets/images/cards/armasuspensa.png", audio: "assets/audio/audio24.mp3" },/*audio*/
+            { id: 21, name: "Arma Na Mão!!", image: "assets/images/cards/armanamao.png", audio: "assets/audio/audio25.mp3" },/*audio*/
+            { id: 22, name: "Ao Solo Arma!!", image: "assets/images/cards/aosoloarma.png", audio: "assets/audio/audio24.mp3" },/*audio*/
             
-            { id: 23, name: "Alvorada", image: "sources/assets/imgs_cards/alvorada.png", audio: "sources/audio/alvorada.mp3" },
+            { id: 23, name: "Alvorada", image: "assets/images/cards/alvorada.png", audio: "assets/audio/alvorada.mp3" },
             
             
-            { id: 24, name: "Hino do Brasil", image: "sources/assets/imgs_cards/brasil.png", audio: "sources/audio/HinoNacionalBrasileiro.mp3" },
-            { id: 25, name: "Canção Do Exército", image: "sources/assets/imgs_cards/cancaoexercito.jpg", audio: "sources/audio/CançãodoExército.mp3" },
-            { id: 26, name: "Hino a caxias", image: "sources/assets/imgs_cards/caxias.jpg", audio: "sources/audio/hinoacaxias.mp3" },
-            { id: 27, name: "Incorporação da Bandeira", image: "sources/assets/imgs_cards/incorpbandeira.png", audio: "sources/audio/IncorporaçãodaBandeira.mp3" },
+            { id: 24, name: "Hino do Brasil", image: "assets/images/cards/brasil.png", audio: "assets/audio/HinoNacionalBrasileiro.mp3" },
+            { id: 25, name: "Canção Do Exército", image: "assets/images/cards/cancaoexercito.jpg", audio: "assets/audio/CançãodoExército.mp3" },
+            { id: 26, name: "Hino a caxias", image: "assets/images/cards/caxias.jpg", audio: "assets/audio/hinoacaxias.mp3" },
+            { id: 27, name: "Incorporação da Bandeira", image: "assets/images/cards/incorpbandeira.png", audio: "assets/audio/IncorporaçãodaBandeira.mp3" },
 
             
-            { id: 28, name: "Exórdio Juramento", image: "sources/assets/imgs_cards/notamusical.png", audio: "sources/audio/ExórdioJuramento.mp4" },
-            { id: 29, name: "Quatro Dias de Viagem", image: "sources/assets/imgs_cards/notamusical.png", audio: "sources/audio/QuatroDiasdeViagem.mp3" },
-            { id: 30, name: "Velhos Camaradas", image: "sources/assets/imgs_cards/notamusical.png", audio: "sources/audio/Velhoscamaradas.mp3" },
-            { id: 31, name: "Avante Camaradas com Bumbo", image: "sources/assets/imgs_cards/ordinarioMarcheDobrado.png", audio: "sources/audio/AvanteCamaradasComBumbo.mp3" },
-            { id: 32, name: "Batista de Melo", image: "sources/assets/imgs_cards/ordinarioMarcheDobrado.png", audio: "sources/audio/batistademelo.mp3" },
-            { id: 33, name: "Hino Nacional Instrumental", image: "sources/assets/imgs_cards/brasil.png", audio: "sources/audio/HinoNacional-Instrumental.mp3" },
-            { id: 34, name: "Continencia Bandeira + Apresentar Arma", image: "sources/assets/imgs_cards/notamusical.png", audio: "sources/audio/Emcontinenciaabandeiracomapresentararma.mp3" },
-            { id: 35, name: "Bandeira Avançar", image: "sources/assets/imgs_cards/notamusical.png", audio: "sources/audio/BandeiraAvancar.mp3" },
+            { id: 28, name: "Exórdio Juramento", image: "assets/images/cards/notamusical.png", audio: "assets/audio/ExórdioJuramento.mp4" },
+            { id: 29, name: "Quatro Dias de Viagem", image: "assets/images/cards/notamusical.png", audio: "assets/audio/QuatroDiasdeViagem.mp3" },
+            { id: 30, name: "Velhos Camaradas", image: "assets/images/cards/notamusical.png", audio: "assets/audio/Velhoscamaradas.mp3" },
+            { id: 31, name: "Avante Camaradas com Bumbo", image: "assets/images/cards/ordinarioMarcheDobrado.png", audio: "assets/audio/AvanteCamaradasComBumbo.mp3" },
+            { id: 32, name: "Batista de Melo", image: "assets/images/cards/ordinarioMarcheDobrado.png", audio: "assets/audio/batistademelo.mp3" },
+            { id: 33, name: "Hino Nacional Instrumental", image: "assets/images/cards/brasil.png", audio: "assets/audio/HinoNacional-Instrumental.mp3" },
+            { id: 34, name: "Continencia Bandeira + Apresentar Arma", image: "assets/images/cards/notamusical.png", audio: "assets/audio/Emcontinenciaabandeiracomapresentararma.mp3" },
+            { id: 35, name: "Bandeira Avançar", image: "assets/images/cards/notamusical.png", audio: "assets/audio/BandeiraAvancar.mp3" },
             
-            { id: 36, name: "Toque 36", image: "sources/assets/imgs_cards/img.png", audio: "sources/audio/audio36.mp3" },
-            { id: 37, name: "Toque 37", image: "sources/assets/imgs_cards/image.png", audio: "sources/audio/audio37.mp3" },
-	        { id: 38, name: "Toque 38", image: "sources/assets/imgs_cards/image.png", audio: "sources/audio/audio38.mp3" },
-            { id: 39, name: "Toque 39", image: "sources/assets/imgs_cards/image.png", audio: "sources/audio/audio39.mp3" },
-            { id: 40, name: "Toque 40", image: "sources/assets/imgs_cards/image.png", audio: "sources/audio/audio40.mp3" }]
+            { id: 36, name: "Toque 36", image: "assets/images/cards/img.png", audio: "assets/audio/audio36.mp3" },
+            { id: 37, name: "Toque 37", image: "assets/images/cards/image.png", audio: "assets/audio/audio37.mp3" },
+	        { id: 38, name: "Toque 38", image: "assets/images/cards/image.png", audio: "assets/audio/audio38.mp3" },
+            { id: 39, name: "Toque 39", image: "assets/images/cards/image.png", audio: "assets/audio/audio39.mp3" },
+            { id: 40, name: "Toque 40", image: "assets/images/cards/image.png", audio: "assets/audio/audio40.mp3" }]
         
 
         // Função para salvar seleção e ordem no localStorage
@@ -258,7 +257,7 @@
                 isChangingOrder = false;
                 editBtnNchangeOrder.style.display = 'none';
                 addTonesBtn.classList.add('active');
-                addTonesBtn.innerHTML = '<img style="width: 65%; height: auto;" src="sources/assets/imgs_icons/white-check.png">';
+                addTonesBtn.innerHTML = '<img style="width: 65%; height: auto;" src="/assets/images/icons/white-check.png">';
             } else {
                 isChangingOrder = true;
                 addTonesBtn.classList.remove('active');
@@ -274,11 +273,11 @@
                 isAddingTones = false;
                 addTonesBtn.style.display = 'none';
                 editBtnNchangeOrder.classList.add('active');
-                changeOrderImg.src = "sources/assets/imgs_icons/white-check.png";
+                changeOrderImg.src = "/assets/images/icons/white-check.png";
                 addTonesBtn.style.display = 'flex';
             } else {
                 editBtnNchangeOrder.classList.remove('active');
-                changeOrderImg.src = "sources/assets/imgs_icons/pencil.png";
+                changeOrderImg.src = "/assets/images/icons/pencil.png";
                 addTonesBtn.style.display = 'none';
             }
             renderTones();
@@ -287,6 +286,11 @@
         // Renderizar toques na inicialização
         renderTones();
     </script>
+    -->
+
+    <script type="module" src="/js/main.js"></script>
+
+
 
 </body>
 </html>
