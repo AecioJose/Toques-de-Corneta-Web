@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <input type="file" id="file">
+    <input type="file" id="file" accept="audio/*">
     <div id="boombox">
         <div class="boombox-handle"></div>
 
@@ -79,7 +79,8 @@
 
         function draw() {
             requestAnimationFrame(draw);
-
+        }
+            /*
             const dataArray = audioControler.getByteFrequencyData();
             const bufferLength = dataArray.length
             canvasCtx.fillStyle = 'rgb(200, 200, 200)';
@@ -116,10 +117,11 @@
             //     canvasCtx.fillRect(x, 0, barWidth, barHeight);
             //     x += barWidth + 1;
             // }
+            
         }
 
         draw();
-
+        */
         // let track;
 
         // const playButton = document.querySelector(".tape-controls-play");
