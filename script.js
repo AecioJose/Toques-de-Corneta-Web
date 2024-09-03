@@ -102,6 +102,11 @@ class AudioControler {
             return sum / dataarray.length;
         }
 
+        map(valor, faixaMinOriginal, faixaMaxOriginal, faixaMinNova, faixaMaxNova) {
+            
+            return faixaMinNova + ((valor - faixaMinOriginal) / (faixaMaxOriginal - faixaMinOriginal)) * (faixaMaxNova - faixaMinNova);
+        }
+
         play() {
             if (!this.initialized) return
 
