@@ -101,43 +101,42 @@ class AudioControler {
 
             return sum / dataarray.length;
         }
-    }
 
-    play() {
-        if (!this.initialized) return
+        play() {
+            if (!this.initialized) return
 
-        this.audioContextSuspended()
-        if (this.audioElement.paused) {
-            this.audioElement.play()
-        }
-    }
-
-    pause() {
-        if (!this.initialized) return
-
-        this.audioContextSuspended()
-        if (!this.audioElement.paused) {
-            this.audioElement.pause()
-        }
-    }
-
-    setVol(volValue) {
-        if (volValue && this.initialized) {
-            if (volValue > this.vol.max || volValue < this.vol.min) {
-                return
+            this.audioContextSuspended()
+            if (this.audioElement.paused) {
+                this.audioElement.play()
             }
-
-            this.gainNode.gain.value = volValue
         }
-    }
 
-    setPan(panValue) {
-        if (panValue && this.initialized) {
-            if (panValue < this.pan.min || panValue > this.pan.max) {
-                return
+        pause() {
+            if (!this.initialized) return
+
+            this.audioContextSuspended()
+            if (!this.audioElement.paused) {
+                this.audioElement.pause()
             }
+        }
 
-            this.panner.pan.value = panValue
+        setVol(volValue) {
+            if (volValue && this.initialized) {
+                if (volValue > this.vol.max || volValue < this.vol.min) {
+                    return
+                }
+
+                this.gainNode.gain.value = volValue
+            }
+        }
+
+        setPan(panValue) {
+            if (panValue && this.initialized) {
+                if (panValue < this.pan.min || panValue > this.pan.max) {
+                    return
+                }
+
+                this.panner.pan.value = panValue
+            }
         }
     }
-}
