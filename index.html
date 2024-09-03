@@ -1,212 +1,142 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
-    <title>Web Audio API examples: Basics</title>
-    <meta name="description" content="Audio basics demo for Web Audio API" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <script src="script.js"></script>
+<title>Web Audio API examples: Basics</title>
+<meta name="description" content="Audio basics demo for Web Audio API" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<script src="script.js"></script>
 </head>
 
 <body>
-    <input type="file" id="file" accept="audio/*">
-    <div id="boombox">
-        <div class="boombox-handle"></div>
+<input type="file" id="file" accept="audio/*">
+<div id="boombox">
+<div class="boombox-handle"></div>
 
-        <div class="boombox-body">
-            <section class="master-controls">
-                <input type="range" id="volume" min="0" max="2" value="1" step="0.01">
+<div class="boombox-body">
+<section class="master-controls">
+<input type="range" id="volume" min="0" max="2" value="1" step="0.01">
 
-                <label for="volume">VOL</label>
+<label for="volume">VOL</label>
 
-                <input type="range" id="panner" min="-1" max="1" value="0" step="0.01" />
+<input type="range" id="panner" min="-1" max="1" value="0" step="0.01" />
 
-                <label for="panner">PAN</label>
+<label for="panner">PAN</label>
 
-            </section>
-            <button onclick="playpause()">PLAY/PAUSE</button>
-            <canvas id="audioCanvas"></canvas>
-        </div>
-        <!-- boombox-body -->
-    </div>
+</section>
+<button onclick="playpause()">PLAY/PAUSE</button>
+<canvas id="audioCanvas"></canvas>
+</div>
+<!-- boombox-body -->
+</div>
 
-    <script type="text/javascript">
-        console.clear();
+<script type="text/javascript">
+console.clear();
 
-        // instigate our audio context
-        let audioCtx;
-        const audioControler = new AudioControler()
+// instigate our audio context
+let audioCtx;
+const audioControler = new AudioControler()
 
-        // load some sound
-        const audioElement = document.querySelector("audio");
-        const fileElement = document.querySelector("#file");
-        const volumeControl = document.querySelector('#volume');
-        const pannerControl = document.querySelector('#panner');
+// load some sound
+const audioElement = document.querySelector("audio");
+const fileElement = document.querySelector("#file");
+const volumeControl = document.querySelector('#volume');
+const pannerControl = document.querySelector('#panner');
 
 
-        fileElement.addEventListener("change", (e) => {
-            audioControler.initialize()
-            audioControler.setSource(URL.createObjectURL(e.target.files[0]))
-        })
+fileElement.addEventListener("change", (e) => {
+audioControler.initialize()
+audioControler.setSource(URL.createObjectURL(e.target.files[0]))
+})
 
-        volumeControl.addEventListener(
-            "input",
-            (event) => {
-                audioControler.setVol(event.target.value)
-            },
-            false
-        );
+volumeControl.addEventListener(
+"input",
+(event) => {
+audioControler.setVol(event.target.value)
+},
+false
+);
 
-        pannerControl.addEventListener(
-            "input",
-            (event) => {
-                audioControler.setPan(event.target.value)
-            },
-            false
-        );
+pannerControl.addEventListener(
+"input",
+(event) => {
+audioControler.setPan(event.target.value)
+},
+false
+);
 
-        function playpause() {
-            if (audioControler.audioElement.paused) {
-                audioControler.play()
-            } else {
-                audioControler.pause()
-            }
-        }
+function playpause() {
+if (audioControler.audioElement.paused) {
+audioControler.play()
+} else {
+audioControler.pause()
+}
+}
 
-        const canvas = document.getElementById('audioCanvas');
-        const canvasCtx = canvas.getContext('2d');
+const canvas = document.getElementById('audioCanvas');
+const canvasCtx = canvas.getContext('2d');
 
-        function draw() {
-            requestAnimationFrame(draw);
-        }
-            /*
-            const dataArray = audioControler.getByteFrequencyData();
-            const bufferLength = dataArray.length
-            canvasCtx.fillStyle = 'rgb(200, 200, 200)';
-            canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+function draw() {
+    canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    const dataL = audioControler.getByteFrequencyDataL()
+    const dataR = audioControler.getByteFrequencyDataR()
+    
+    let L = audioControler.getMedia(dataL)
+    let R = audioControler.getMedia(dataR)
+    
+    const barWidth = 30
+    canvasCtx.fillStyle = "rgb(49,255,9)"
+    canvasCtx.fillRect(30, canvas.height, 30, map(canvas.height - R, 0, 255, 0, canvas.height))
+    canvasCtx.fillRect(90, canvas.height, 30, map(canvas.height - L, 0, 255, 0, canvas.height))
+    requestAnimationFrame(draw);
+}
 
-            const barWidth = (canvas.width / bufferLength) * 2.5;
-            let x = 0;
+draw()
+/*
+const dataArray = audioControler.getByteFrequencyData();
+const bufferLength = dataArray.length
+canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
-            for (let i = 0; i < bufferLength; i++) {
-                let barHeight = dataArray[i];
-                canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',50,50)';
-                canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);
+const barWidth = (canvas.width / bufferLength) * 2.5;
+let x = 0;
 
-                x += barWidth + 1;
-            }
+for (let i = 0; i < bufferLength; i++) {
+let barHeight = dataArray[i];
+canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',50,50)';
+canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);
 
-            // const leftDataArray = audioControler.getByteFrequencyDataL()
-            // const rightDataArray = audioControler.getByteFrequencyDataL()
-            // const barWidth = (canvas.width / 2 / leftDataArray.length) * 2.5;
-            // // Visualização do canal esquerdo
-            // canvasCtx.fillStyle = 'rgb(0, 0, 255)'; // Azul para o canal esquerdo
-            // x = 0;
-            // for (let i = 0; i < leftDataArray.length; i++) {
-            //     let barHeight = leftDataArray[i];
-            //     canvasCtx.fillRect(x, 0, barWidth, barHeight);
-            //     x += barWidth + 1;
-            // }
+x += barWidth + 1;
+}
 
-            // // Visualização do canal direito
-            // canvasCtx.fillStyle = 'rgb(255, 0, 0)'; // Vermelho para o canal direito
-            // x = canvas.width / 2;
-            // for (let i = 0; i < rightDataArray.length; i++) {
-            //     let barHeight = rightDataArray[i];
-            //     canvasCtx.fillRect(x, 0, barWidth, barHeight);
-            //     x += barWidth + 1;
-            // }
-            
-        }
+// const leftDataArray = audioControler.getByteFrequencyDataL()
+// const rightDataArray = audioControler.getByteFrequencyDataL()
+// const barWidth = (canvas.width / 2 / leftDataArray.length) * 2.5;
+// // Visualização do canal esquerdo
+// canvasCtx.fillStyle = 'rgb(0, 0, 255)'; // Azul para o canal esquerdo
+// x = 0;
+// for (let i = 0; i < leftDataArray.length; i++) {
+//     let barHeight = leftDataArray[i];
+//     canvasCtx.fillRect(x, 0, barWidth, barHeight);
+//     x += barWidth + 1;
+// }
 
-        draw();
-        */
-        // let track;
+// // Visualização do canal direito
+// canvasCtx.fillStyle = 'rgb(255, 0, 0)'; // Vermelho para o canal direito
+// x = canvas.width / 2;
+// for (let i = 0; i < rightDataArray.length; i++) {
+//     let barHeight = rightDataArray[i];
+//     canvasCtx.fillRect(x, 0, barWidth, barHeight);
+//     x += barWidth + 1;
+// }
+}
 
-        // const playButton = document.querySelector(".tape-controls-play");
-
-        // // play pause audio
-        // fileElement.addEventListener("change", (e) => {
-        //     audioElement.src = URL.createObjectURL(e.target.files[0])
-
-        //     playButton.addEventListener(
-        //         "click",
-        //         () => {
-        //             if (!audioCtx) {
-        //                 init();
-        //             }
-
-        //             // check if context is in suspended state (autoplay policy)
-        //             if (audioCtx.state === "suspended") {
-        //                 audioCtx.resume();
-        //             }
-
-        //             if (playButton.dataset.playing === "false") {
-        //                 audioElement.play();
-        //                 playButton.dataset.playing = "true";
-        //                 // if track is playing pause it
-        //             } else if (playButton.dataset.playing === "true") {
-        //                 audioElement.pause();
-        //                 playButton.dataset.playing = "false";
-        //             }
-
-        //             // Toggle the state between play and not playing
-        //             let state =
-        //                 playButton.getAttribute("aria-checked") === "true" ? true : false;
-        //             playButton.setAttribute("aria-checked", state ? "false" : "true");
-        //         },
-        //         false
-        //     );
-
-        // })
-
-        // // If track ends
-        // audioElement.addEventListener(
-        //     "ended",
-        //     () => {
-        //         playButton.dataset.playing = "false";
-        //         playButton.setAttribute("aria-checked", "false");
-        //     },
-        //     false
-        // );
-
-        // function init() {
-        //     audioCtx = new AudioContext();
-        //     track = new MediaElementAudioSourceNode(audioCtx, {
-        //         mediaElement: audioElement,
-        //     });
-
-        //     // Create the node that controls the volume.
-        //     const gainNode = new GainNode(audioCtx);
-
-        //     const volumeControl = document.querySelector('[data-action="volume"]');
-        //     volumeControl.addEventListener(
-        //         "input",
-        //         () => {
-        //             gainNode.gain.value = volumeControl.value;
-        //         },
-        //         false
-        //     );
-
-        //     // Create the node that controls the panning
-        //     const panner = new StereoPannerNode(audioCtx, { pan: 0 });
-
-        //     const pannerControl = document.querySelector('[data-action="panner"]');
-        //     pannerControl.addEventListener(
-        //         "input",
-        //         () => {
-        //             panner.pan.value = pannerControl.value;
-        //         },
-        //         false
-        //     );
-
-        //     // connect our graph
-        //     track.connect(gainNode).connect(panner).connect(audioCtx.destination);
-        // }
-
-        // Track credit: Outfoxing the Fox by Kevin MacLeod under Creative Commons
-    </script>
+draw();
+*/
+</script>
 </body>
 
 </html>
