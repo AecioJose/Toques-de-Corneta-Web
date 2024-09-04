@@ -5,6 +5,15 @@ body {
 * {
     color: #ffffff;
 }
+
+button {
+    color: #000000;
+}
+
+canvas {
+    border: 1px solid #ffffff6b;
+}
+
 #panner {
     width: 350px;
 }
