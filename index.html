@@ -84,8 +84,6 @@ const dec = 0.8
 function draw() {
     canvasCtx.fillStyle = 'rgb(200, 200, 200)';
     canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-    const grad = canvasCtx.createLinearGradient(0, 0, canvas.width, canvas.height);
-
 
     const dataL = audioControler.getByteFrequencyDataL()
     const dataR = audioControler.getByteFrequencyDataR()
