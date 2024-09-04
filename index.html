@@ -104,7 +104,7 @@ function draw() {
         canvas.height - Lh, 
         30, 
         canvas.height)
-    if (Lh < lineOld.l) {
+    if (canvas.height - Lh < lineOld.l) {
         lineOld.l = canvas.height - Lh
     }
      
@@ -120,7 +120,7 @@ function draw() {
         canvas.height - Rh, 
         30,
         canvas.height)
-    if (Rh < lineOld.r) {
+    if (canvas.height - Rh < lineOld.r) {
         lineOld.r = canvas.height - Rh
     }
     requestAnimationFrame(draw);
