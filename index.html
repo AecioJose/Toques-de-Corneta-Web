@@ -87,8 +87,8 @@ function draw() {
     let L = audioControler.getMedia(dataL)
     let R = audioControler.getMedia(dataR)
     
-    let Lh = audioControler.map(R, 0, 255, canvas.height, 0)
-    let Rh = audioControler.map(L, 0, 255, canvas.height, 0)
+    let Lh = audioControler.map(R, 0, 255, 0, canvas.height)
+    let Rh = audioControler.map(L, 0, 255, 0, canvas.height)
     
     canvasCtx.fillStyle = "rgb(49,255,9)"
     canvasCtx.fillRect(
