@@ -89,8 +89,8 @@ function draw() {
     
     const barWidth = 30
     canvasCtx.fillStyle = "rgb(49,255,9)"
-    canvasCtx.fillRect(30, canvas.height/2, 30, canvas.height - audioControler.map(R, 0, 255, 0, canvas.height))
-    canvasCtx.fillRect(90, canvas.height/2, 30, canvas.height - audioControler.map(L, 0, 255, 0, canvas.height))
+    canvasCtx.fillRect(30, canvas.height, 30, audioControler.map(R, 0, 255, canvas.height, 0))
+    canvasCtx.fillRect(90, canvas.height, 30, audioControler.map(L, 0, 255, canvas.height, 0))
     requestAnimationFrame(draw);
 }
 
