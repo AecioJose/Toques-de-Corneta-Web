@@ -87,9 +87,18 @@ function draw() {
     let L = audioControler.getMedia(dataL)
     let R = audioControler.getMedia(dataR)
     
+    let Lh = audioControler.map(R, 0, 255, canvas.height, 0)
+    let Rh = audioControler.map(L, 0, 255, canvas.height, 0)
+    
     canvasCtx.fillStyle = "rgb(49,255,9)"
-    canvasCtx.fillRect(90, audioControler.map(R, 0, 255, canvas.height, 0), 30, 30)
-    canvasCtx.fillRect(30, audioControler.map(L, 0, 255, canvas.height, 0), 30,30)
+    canvasCtx.fillRect(
+        90,
+        Lh, 
+        30, 30)
+    canvasCtx.fillRect(
+        30, 
+        Rh, 
+        30,30)
     requestAnimationFrame(draw);
 }
 
