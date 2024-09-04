@@ -124,8 +124,8 @@ function draw() {
         lineOld.r = canvas.height - Rh
     }
     
-    lineOld.l -= 0.01
-    lineOld.r -= 0.01
+    lineOld.l = lineOld.l - 0.01
+    lineOld.r = lineOld.r - 0.01
     requestAnimationFrame(draw);
 }
 
