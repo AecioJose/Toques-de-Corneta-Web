@@ -110,7 +110,7 @@ function draw() {
         canvas.height)*/
     let grad = canvasCtx.createLinearGradient(90, canvas.height - Lh, 30, canvas.height)
     grad.addColorStop(0, "hsl(120,100%,50%)")
-    grid.addColorStop(1, `hsl(${audioControler.map(L, 0, 255, 0, 130)}, 100%, 50%)`)
+    grad.addColorStop(1, `hsl(${audioControler.map(L, 0, 255, 0, 130)}, 100%, 50%)`)
     
     if (canvas.height - Lh < lineOld.l) {
         lineOld.l = canvas.height - Lh
