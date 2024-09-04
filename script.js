@@ -56,7 +56,8 @@ class AudioControler {
         }
 
         connect() {
-            this.track.connect(this.analyser).connect(this.gainNode).connect(this.splitter).connect(this.panner).connect(this.audioCtx.destination)
+            this.track.connect(this.analyser).connect(this.gainNode).connect(this.panner  ).connect(this.splitter)
+            this.panner.connect(this.audioCtx.destination)
 
             this.splitter.connect(this.leftChannel, 0)
             this.splitter.connect(this.rightChannel, 1)
