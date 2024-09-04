@@ -101,8 +101,8 @@ function draw() {
         30, 
         lineh)
     let grad = canvasCtx.createLinearGradient(90, canvas.height - Lh, 30, canvas.height)
-    grad.addColorStop(0, "hsl(120,100%,50%)")
-    grad.addColorStop(0.5, `hsl(${audioControler.map(L, 0, 255, 0, 130)}, 100%, 50%)`)
+    grad.addColorStop(0, `hsl(${audioControler.map(L, 0, 255, 0, 130)}, 100%, 50%)`)
+    grad.addColorStop(1, "hsl(120,100%,50%)")
     canvasCtx.fillStyle = grad
     canvasCtx.fillRect(
         90,
