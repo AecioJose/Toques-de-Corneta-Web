@@ -100,8 +100,8 @@ function draw() {
         lineOld.l - lineh, 
         30, 
         lineh)
-    canvasCtx.fillStyle = "rgb(49,255,9)"
-    /*canvasCtx.fillRect(
+    /*canvasCtx.fillStyle = "rgb(49,255,9)"
+    canvasCtx.fillRect(
         90,
         canvas.height - Lh, 
         30, 
@@ -109,7 +109,7 @@ function draw() {
     let grad = canvasCtx.createLinearGradient(90, canvas.height - Lh, 30, canvas.height)
     grad.addColorStop(0, "hsl(120,100%,50%)")
     grad.addColorStop(1, `hsl(${audioControler.map(L, 0, 255, 0, 130)}, 100%, 50%)`)
-    
+    canvasCtx.fillStyle = grad
     if (canvas.height - Lh < lineOld.l) {
         lineOld.l = canvas.height - Lh
     }
