@@ -143,7 +143,7 @@ function draw() {
         canvasCtxAnalyser.fillStyle = "#ffffff"
         
         let barw = analyserCanvas.width / analyserData.length
-        let barh = audioControler.map(analyserData[i], 0, 255, 0, analyserCanvas.height)
+        let barh = audioControler.map(analyserData[i], 0, 255, 0, analyserCanvas.height-3)
         canvasCtxAnalyser.fillRect(barw*i, analyserCanvas.height - barh, barw, barh)
         
     }
