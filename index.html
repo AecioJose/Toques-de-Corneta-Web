@@ -84,7 +84,9 @@ const dec = 0.8
 function draw() {
     canvasCtx.fillStyle = 'rgb(200, 200, 200)';
     canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-    
+    const grad = canvasCtx.createLinearGradient(0, 0, canvas.width, canvas.height);
+
+
     const dataL = audioControler.getByteFrequencyDataL()
     const dataR = audioControler.getByteFrequencyDataR()
     
@@ -101,11 +103,15 @@ function draw() {
         30, 
         lineh)
     canvasCtx.fillStyle = "rgb(49,255,9)"
-    canvasCtx.fillRect(
+    /*canvasCtx.fillRect(
         90,
         canvas.height - Lh, 
         30, 
-        canvas.height)
+        canvas.height)*/
+    let grad = canvasCtx.createLinearGradient(90, canvas.height - Lh, 30, canvas.height)
+    grad.addColorStop(0, "hsl(120,100%,50%)")
+    grid.addColorStop(1, `hsl(${audioControler.map(L, 0, 255, 0, 130)}, 100%, 50%)`)
+    
     if (canvas.height - Lh < lineOld.l) {
         lineOld.l = canvas.height - Lh
     }
