@@ -77,9 +77,11 @@ audioControler.pause()
 }
 
 const canvas = document.getElementById('audioCanvas');
-const analyserCanvas = document.getElementById('analyserCanvas');
 const canvasCtx = canvas.getContext('2d');
+
+const analyserCanvas = document.getElementById('analyserCanvas');
 const canvasCtxAnalyser = analyserCanvas.getContext('2d');
+
 const lineOld = {l: canvas.height, r: canvas.height}
 const lineh = 2
 const dec = 0.7
@@ -87,7 +89,7 @@ const dec = 0.7
 function draw() {
     canvasCtx.fillStyle = '#000000';
     canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-
+    const analyserData = audioControler.getByteFrequencyData()
     const dataL = audioControler.getByteFrequencyDataL()
     const dataR = audioControler.getByteFrequencyDataR()
     
@@ -135,6 +137,17 @@ function draw() {
     
     if (lineOld.l < canvas.height) lineOld.l += dec
     if (lineOld.r < canvas.height) lineOld.r += dec
+    canvasCtxAnalyser.fillStyle = '#000000';
+    canvasCtxAnalyser.fillRect(0, 0, analyserCanvas.width, analyserCanvas.height);
+    for (let i=0; i < analyserData.length; i++) {
+        canvasCtxAnalyser.fillStyle = "#ffffff"
+        
+        let barw = analyserCanvas.width / analyserData.length
+        let barh = audioControler.map(analyserData[i], 0, 255, 0, analyserCanvas.height)
+        canvasCtxAnalyser.fillRect(barw*i, analyserCanvas.height - barh, barw, analyserCanvas.height)
+        
+    }
+    
     requestAnimationFrame(draw);
 }
 
