@@ -13,6 +13,7 @@ button {
 
 canvas {
     border: 1px solid #ffffff6b;
+    margin-top: 25px;
 }
 
 #panner {
