@@ -78,6 +78,7 @@ audioControler.pause()
 const canvas = document.getElementById('audioCanvas');
 const canvasCtx = canvas.getContext('2d');
 const lineOld = {l: canvas.height, r: canvas.height}
+const lineh = 2
 
 function draw() {
     canvasCtx.fillStyle = 'rgb(200, 200, 200)';
@@ -95,9 +96,9 @@ function draw() {
     canvasCtx.fillStyle = "#ffffff"
     canvasCtx.fillRect(
         90,
-        lineOld.l - 10, 
+        lineOld.l - lineh, 
         30, 
-        10)
+        lineh)
     canvasCtx.fillStyle = "rgb(49,255,9)"
     canvasCtx.fillRect(
         90,
@@ -111,9 +112,9 @@ function draw() {
     canvasCtx.fillStyle = "#ffffff"   
     canvasCtx.fillRect(
         30, 
-        lineOld.r - 10, 
+        lineOld.r - lineh, 
         30,
-        10)
+        lineh)
     canvasCtx.fillStyle = "rgb(49,255,9)"
     canvasCtx.fillRect(
         30, 
