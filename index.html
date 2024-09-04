@@ -104,7 +104,7 @@ function draw() {
         30, 
         canvas.height)
     if (Lh < lineOld.l) {
-        lineOld.l = Lh
+        lineOld.l = canvas.height - Lh
     }
         
     canvasCtx.fillRect(
@@ -118,7 +118,7 @@ function draw() {
         30,
         canvas.height)
     if (Rh < lineOld.r) {
-        lineOld.r = Rh
+        lineOld.r = canvas.height - Rh
     }
     requestAnimationFrame(draw);
 }
