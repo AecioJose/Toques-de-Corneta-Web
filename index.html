@@ -79,6 +79,7 @@ const canvas = document.getElementById('audioCanvas');
 const canvasCtx = canvas.getContext('2d');
 const lineOld = {l: canvas.height, r: canvas.height}
 const lineh = 2
+const dec = 0.8
 
 function draw() {
     canvasCtx.fillStyle = 'rgb(200, 200, 200)';
@@ -126,8 +127,8 @@ function draw() {
     }
     
     
-    if (lineOld.l < canvas.height) lineOld.l = lineOld.l + 0.9
-    if (lineOld.r < canvas.height) lineOld.r = lineOld.r + 0.9
+    if (lineOld.l < canvas.height) lineOld.l += dec
+    if (lineOld.r < canvas.height) lineOld.r += dec
     requestAnimationFrame(draw);
 }
 
