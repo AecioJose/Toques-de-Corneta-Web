@@ -40,7 +40,7 @@ class AudioControler {
                     pan: this.pan.default
                 })
                 this.analyser = this.audioCtx.createAnalyser()
-                this.analyser.fftSize = 256
+                this.analyser.fftSize = 32
                 this.splitter = this.audioCtx.createChannelSplitter(2)
                 this.leftChannel = this.audioCtx.createAnalyser()
                 this.leftChannel.fftSize = 32
