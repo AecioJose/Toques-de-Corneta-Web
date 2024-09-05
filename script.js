@@ -46,8 +46,8 @@ const analyserCanvas = document.getElementById('analyserCanvas');
 const canvasCtxAnalyser = analyserCanvas.getContext('2d');
 
 const lineOld = { l: canvas.height, r: canvas.height }
-const lineh = 2
-const dec = 0.7
+const lineh = 3
+const dec = 0.8
 
 function draw() {
     canvasCtx.fillStyle = '#000000';
@@ -78,7 +78,7 @@ function draw() {
         30,
         canvas.height)
     if (canvas.height - Lh < lineOld.l) {
-        lineOld.l = canvas.height - Lh
+        lineOld.l = canvas.height - (Lh + lineh)
     }
 
     canvasCtx.fillStyle = "#ffffff"
@@ -94,7 +94,7 @@ function draw() {
         30,
         canvas.height)
     if (canvas.height - Rh < lineOld.r) {
-        lineOld.r = canvas.height - Rh
+        lineOld.r = canvas.height - (Rh + lineh)
     }
 
 
@@ -121,7 +121,7 @@ function draw() {
         canvasCtxAnalyser.fillRect(barw * i, analyserCanvas.height - barh, barw, barh)
     }
     /* ============== */
-    requestAnimationFrame(draw);
+    requestAnimationFrame(draw)
 }
 
 draw()
