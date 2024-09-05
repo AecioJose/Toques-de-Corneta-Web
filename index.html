@@ -1,201 +1,39 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
-<title>Web Audio API examples: Basics</title>
-<meta name="description" content="Audio basics demo for Web Audio API" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<link rel="stylesheet" href="style.css">
-<script src="script.js"></script>
+    <title>Web Audio API examples: Basics</title>
+    <meta name="description" content="Audio basics demo for Web Audio API" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="style.css">
+    <script src="audioControler.js"></script>
 </head>
 
 <body>
-<input type="file" id="file" accept="audio/*">
-<div id="boombox">
-<div class="boombox-handle"></div>
+    <input type="file" id="file" accept="audio/*">
+    <div id="boombox">
+        <div class="boombox-handle"></div>
 
-<div class="boombox-body">
-<section class="master-controls">
-<input type="range" id="volume" min="0" max="2" value="1" step="0.01">
+        <div class="boombox-body">
+            <section class="master-controls">
+                <input type="range" id="volume" min="0" max="2" value="1" step="0.01">
 
-<label for="volume">VOL</label>
+                <label for="volume">VOL</label>
 
-<input type="range" id="panner" min="-1" max="1" value="0" step="0.001" />
+                <input type="range" id="panner" min="-1" max="1" value="0" step="0.001" />
 
-<label for="panner">PAN</label>
+                <label for="panner">PAN</label>
 
-</section>
-<canvas id="audioCanvas" width="150" height="300"></canvas>
-<canvas id="analyserCanvas" width="300" height="150"></canvas>
-<button onclick="playpause()">PLAY/PAUSE</button>
-</div>
-<!-- boombox-body -->
-</div>
+            </section>
+            <canvas id="audioCanvas" width="150" height="300"></canvas>
+            <canvas id="analyserCanvas" width="300" height="150"></canvas>
+            <button onclick="playpause()">PLAY/PAUSE</button>
+        </div>
+        <!-- boombox-body -->
+    </div>
 
-<script type="text/javascript">
-console.clear();
-
-// instigate our audio context
-let audioCtx;
-const audioControler = new AudioControler()
-
-// load some sound
-const audioElement = document.querySelector("audio");
-const fileElement = document.querySelector("#file");
-const volumeControl = document.querySelector('#volume');
-const pannerControl = document.querySelector('#panner');
-
-
-fileElement.addEventListener("change", (e) => {
-audioControler.initialize()
-audioControler.setSource(URL.createObjectURL(e.target.files[0]))
-})
-
-volumeControl.addEventListener(
-"input",
-(event) => {
-audioControler.setVol(event.target.value)
-},
-false
-);
-
-pannerControl.addEventListener(
-"input",
-(event) => {
-audioControler.setPan(event.target.value)
-},
-false
-);
-
-function playpause() {
-if (audioControler.audioElement.paused) {
-audioControler.play()
-} else {
-audioControler.pause()
-}
-}
-
-const canvas = document.getElementById('audioCanvas');
-const canvasCtx = canvas.getContext('2d');
-
-const analyserCanvas = document.getElementById('analyserCanvas');
-const canvasCtxAnalyser = analyserCanvas.getContext('2d');
-
-const lineOld = {l: canvas.height, r: canvas.height}
-const lineh = 2
-const dec = 0.7
-
-function draw() {
-    canvasCtx.fillStyle = '#000000';
-    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-    const analyserData = audioControler.getByteFrequencyData()
-    const dataL = audioControler.getByteFrequencyDataL()
-    const dataR = audioControler.getByteFrequencyDataR()
-    
-    let L = audioControler.getMedia(dataL)
-    let R = audioControler.getMedia(dataR)
-    
-    let Lh = audioControler.map(R, 0, 255, 0, canvas.height)
-    let Rh = audioControler.map(L, 0, 255, 0, canvas.height)
-    
-    canvasCtx.fillStyle = "#ffffff"
-    canvasCtx.fillRect(
-        90,
-        lineOld.l - lineh, 
-        30, 
-        lineh)
-    let grad = canvasCtx.createLinearGradient(90, canvas.height - Lh, 30, canvas.height)
-    grad.addColorStop(0, `hsl(${audioControler.map(L, 0, 255, 130, 0)}, 100%, 50%)`)
-    grad.addColorStop(1, "hsl(120,100%,50%)")
-    canvasCtx.fillStyle = grad
-    canvasCtx.fillRect(
-        90,
-        canvas.height - Lh, 
-        30, 
-        canvas.height)
-    if (canvas.height - Lh < lineOld.l) {
-            lineOld.l = canvas.height - Lh
-    }
-     
-    canvasCtx.fillStyle = "#ffffff"   
-    canvasCtx.fillRect(
-        30, 
-        lineOld.r - lineh, 
-        30,
-        lineh)
-    canvasCtx.fillStyle = "rgb(49,255,9)"
-    canvasCtx.fillRect(
-        30, 
-        canvas.height - Rh, 
-        30,
-        canvas.height)
-    if (canvas.height - Rh < lineOld.r) {
-        lineOld.r = canvas.height - Rh
-    }
-    
-    
-    if (lineOld.l < canvas.height) {
-        lineOld.l += dec
-    }
-    if (lineOld.r < canvas.height) lineOld.r += dec
-    canvasCtxAnalyser.fillStyle = '#000000';
-    canvasCtxAnalyser.fillRect(0, 0, analyserCanvas.width, analyserCanvas.height);
-    for (let i=0; i < analyserData.length; i++) {
-        canvasCtxAnalyser.fillStyle = "#ffffff"
-        
-        let barw = analyserCanvas.width / analyserData.length
-        let barh = audioControler.map(analyserData[i], 0, 255, 3, analyserCanvas.height)
-        canvasCtxAnalyser.fillRect(barw*i, analyserCanvas.height - barh, barw, barh)
-        
-    }
-    
-    requestAnimationFrame(draw);
-}
-
-draw()
-/*
-const dataArray = audioControler.getByteFrequencyData();
-const bufferLength = dataArray.length
-canvasCtx.fillStyle = 'rgb(200, 200, 200)';
-canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-
-const barWidth = (canvas.width / bufferLength) * 2.5;
-let x = 0;
-
-for (let i = 0; i < bufferLength; i++) {
-let barHeight = dataArray[i];
-canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',50,50)';
-canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);
-
-x += barWidth + 1;
-}
-
-// const leftDataArray = audioControler.getByteFrequencyDataL()
-// const rightDataArray = audioControler.getByteFrequencyDataL()
-// const barWidth = (canvas.width / 2 / leftDataArray.length) * 2.5;
-// // Visualização do canal esquerdo
-// canvasCtx.fillStyle = 'rgb(0, 0, 255)'; // Azul para o canal esquerdo
-// x = 0;
-// for (let i = 0; i < leftDataArray.length; i++) {
-//     let barHeight = leftDataArray[i];
-//     canvasCtx.fillRect(x, 0, barWidth, barHeight);
-//     x += barWidth + 1;
-// }
-
-// // Visualização do canal direito
-// canvasCtx.fillStyle = 'rgb(255, 0, 0)'; // Vermelho para o canal direito
-// x = canvas.width / 2;
-// for (let i = 0; i < rightDataArray.length; i++) {
-//     let barHeight = rightDataArray[i];
-//     canvasCtx.fillRect(x, 0, barWidth, barHeight);
-//     x += barWidth + 1;
-// }
-}
-
-draw();
-*/
-</script>
+    <script src="script.js"></script>
 </body>
 
 </html>
