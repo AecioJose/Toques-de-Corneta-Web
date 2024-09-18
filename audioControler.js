@@ -1,6 +1,7 @@
 class AudioControler {
     constructor() {
         this.audioElement = new Audio()
+        this.addEventListener = this.audioElement.addEventListener
         this.audioCtx = null
         this.track = null
         this.gainNode = null
@@ -26,8 +27,6 @@ class AudioControler {
             default: 0
             }
             this.initialized = false
-            //step = 0.01
-            //-1 left / 1 right
         }
 
         initialize() {
@@ -121,7 +120,8 @@ class AudioControler {
             
             return faixaMinNova + ((valor - faixaMinOriginal) / (faixaMaxOriginal - faixaMinOriginal)) * (faixaMaxNova - faixaMinNova);
         }
-
+        
+        /* AUDIO FUNCTIONS */
         play() {
             if (!this.initialized) return
 
@@ -139,6 +139,25 @@ class AudioControler {
                 this.audioElement.pause()
             }
         }
+
+        paused() {
+            return this.audioElement.paused
+        } 
+
+        src(filePath) {
+            if (filePath) {
+                this.audioElement.src = filePath
+            } else {
+                return this.audioElement.src
+            }
+        }
+
+        setCurrentTime(value) {
+            if (value) {
+                this.audioElement.currentTime = value
+            }
+        }
+        /* =============== */
 
         setVol(volValue) {
             if (volValue && this.initialized) {
