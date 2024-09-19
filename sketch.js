@@ -9,7 +9,7 @@ h = canvas.height
 y = canvas.height - 5
 x = canvas.width/6
 
-canvasCtx.lineWidth = 0.6
+canvasCtx.lineWidth = 0.3
 canvasCtx.strokeStyle = "#ffffff"
 
 audioControler.addEventListener("loadeddata", (e) => {
