@@ -1,38 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
-    <meta charset="utf-8" />
-    <title>Web Audio API examples: Basics</title>
-    <meta name="description" content="Audio basics demo for Web Audio API" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/libs/Utils.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toques de Corneta</title>
+    <link rel="icon" href="/assets/images/icons/corneta.ico" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="js/libs/Utils.min.js"></script> <!-- MY JS -->
 </head>
-
 <body>
-    <input type="file" id="file" accept="audio/*">
-    <div id="boombox">
-        <div class="boombox-handle"></div>
 
-        <div class="boombox-body">
-            <section class="master-controls">
-                <input type="range" id="volume" min="0" max="2" value="1" step="0.01">
+    <header>
+        <span style="display: flex; flex-direction: row; align-items: center; justify-content: center;" >Toques De Corneta <img style="margin-left: 15px; width: 50px;" src="assets/images/icons/corneta.ico" alt="Minha Figura"> </span>
 
-                <label for="volume">VOL</label>
+        <div><!--Menuzinho de playlist com ultima opção de adicionar nova playlist-->
 
-                <input type="range" id="panner" min="-1" max="1" value="0" step="0.001" />
-
-                <label for="panner">PAN</label>
-
-            </section>
-            <div id="canvas-area"></div>
-            <input type="range" id="time" min="0" value="0">
-            <button onclick="init()">LOAD LOCAL SOUND</button>
-            <button onclick="playOrpause()">PLAY/PAUSE</button>
         </div>
-    </div>
-    <script src="js/scripts/sketch.js"></script>
-</body>
+    </header>
 
+    <main>
+        <div class="sombra"></div>
+        <div class="monitorPFL"></div>
+
+        </div>
+        <div id="button-container">
+            <!-- Botões de toques serão gerados aqui -->
+        </div>
+
+        
+
+        <div class="actions">
+            <button id="add-tones-btn">Adicionar Toques <span style="font-size: 3vw; margin-left: 0.5vw;">+</span></button>
+            <button id="edit-btn"><img id="edit-img" src="/assets/images/icons/pencil.png" alt="Imagem de lapis representando que ao clicar aqui você edita os cards"></button>
+        </div>
+        
+    </main>
+    <!--MY JS -->
+    <!-- <script src="js/scripts/sketch.js"></script> -->
+    <script type="module" src="/js/main.js"></script>
+</body>
 </html>

@@ -5,7 +5,7 @@ const timeControl = document.querySelector('#time');
 const audioControler = new AudioControler()
 let x, y, w, h;
 
-createCanvas(150, 300, "#canvas-area")
+createCanvas(150, 300, ".monitorPFL")
 
 w = 30
 h = HEIGHT
@@ -19,34 +19,34 @@ audioControler.addEventListener("loadeddata", (e) => {
     e.target.play()
 })
 
-audioControler.addEventListener("timeupdate", (e) => {
-    timeControl.value = e.target.currentTime
-})
+// audioControler.addEventListener("timeupdate", (e) => {
+//     timeControl.value = e.target.currentTime
+// })
 
-fileElement.addEventListener("change", (e) => {
-    audioControler.initialize()
-    audioControler.src(URL.createObjectURL(e.target.files[0]))
-})
+// fileElement.addEventListener("change", (e) => {
+//     audioControler.initialize()
+//     audioControler.src(URL.createObjectURL(e.target.files[0]))
+// })
 
-volumeControl.addEventListener(
-    "input",
-    (event) => {
-        audioControler.setVol(event.target.value)
-    },
-    false
-);
+// volumeControl.addEventListener(
+//     "input",
+//     (event) => {
+//         audioControler.setVol(event.target.value)
+//     },
+//     false
+// );
 
-pannerControl.addEventListener(
-    "input",
-    (event) => {
-        audioControler.setPan(event.target.value)
-    },
-    false
-);
+// pannerControl.addEventListener(
+//     "input",
+//     (event) => {
+//         audioControler.setPan(event.target.value)
+//     },
+//     false
+// );
 
-timeControl.addEventListener("input", (e) => {
-    audioControler.currentTime(e.target.value)
-})
+// timeControl.addEventListener("input", (e) => {
+//     audioControler.currentTime(e.target.value)
+// })
 
 function playOrpause() {
     if (audioControler.paused()) {

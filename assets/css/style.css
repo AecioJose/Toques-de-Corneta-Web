@@ -1,0 +1,302 @@
+*,
+*:after,
+*:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    list-style-type: none;
+    font-family: "Spline Sans Mono", Arial, sans-serif;
+    margin: 0;
+    height: 100dvh;
+
+    background-image: url("/assets/images/backgrounds/background.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: 23%;
+    
+}
+
+header {
+    width: 100%;
+    height: 7vh;
+    background-color: #12120d;
+    margin: 0;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 1000;
+}
+
+header span {
+    font-family: "Black Ops One", Arial, sans-serif;
+    font-size: 2rem;
+    color: #FFF;
+
+}
+
+main {
+    height: auto;
+    min-height: 100vh;
+    padding-top: 8vh;
+    
+}
+
+.sombra {
+    position: fixed;
+    top: 20px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+
+/* monitorPFL */
+.monitorPFL {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    padding: 1em;
+    position: relative;
+    z-index: 2;
+}
+
+.monitorPFL canvas {
+    border: 1px solid #ffffff6b;
+    image-rendering:optimizeQuality;
+}
+
+/* ============= */
+
+#button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+    gap: 8px;
+    padding-top: 8px;
+}
+
+.tone-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    gap: 5px;
+    width: 15vw;
+    min-width: 80px;
+    height: 12vw;
+    min-height: 90px;
+    position: relative;
+    padding: 5px 7px;
+    background: rgba(85, 105, 68, 0.8);
+    border: 2px solid rgba(85, 105, 68, 0.5);
+    border-radius: 15px;
+    transition: background-color 0.3s, border-color 0.3s;
+    cursor: pointer;
+    user-select: none;
+    color: #000;
+}
+
+.editMoveCard {
+    width: 97%;
+    height: 18%;
+    position: absolute;
+    top: 2%;
+    margin: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* background: red; */
+}
+
+.editMoveCard-pencil, .editMoveCard-MoveIcon {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.editMoveCard-MoveIcon {
+    background-image: url("/assets/images/icons/move_icon.png");
+    
+}
+
+.editMoveCard-pencil {
+    background-image: url("/assets/images/icons/pencil.png");
+    background-size: 50%;
+    background-position: 20% 20%;
+}
+
+
+.img-container {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.tone-button span {
+    /* height: 40%; */
+    width: 100%;
+    text-align: center;
+    text-size-adjust: 50%;
+    overflow: clip;
+    text-overflow: ellipsis;
+    padding: 2px;
+    white-space: pre-line;
+    font-weight: 800;
+    font-size: 1.08vw;
+}
+
+
+
+.tone-button.selected {
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+
+
+.tone-button.dragging {
+    opacity: 0.6;
+}
+
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+
+    height: 10vw;
+    padding: 50px 0;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.actions button {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+
+#edit-btn {
+    width: 6vw;
+    height: 6vw;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 30px;
+
+}
+
+#edit-btn img {
+    width: 65%;
+    height: auto;
+}
+
+#edit-btn {
+    background-color: #b48b60c4;
+}
+
+#edit-btn.active {
+    background-color: #319934;
+}
+
+
+
+#add-tones-btn, #add-tones-btn.active {
+    width: 14vw;
+    height: 4vw;
+    margin-right: 2vw;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #0d6efd;
+    font-family: 'Spline Sans Mono';
+    font-size: 1.07vw;
+    color: #ffffff;
+}
+
+#add-tones-btn.active {
+    background-color: #319934;
+    width: 6vw;
+    height: 6vw;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 30px;
+}
+
+
+
+
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {
+    /**/
+}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+    /**/
+}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 567px) {
+    main {
+        padding-top: 7vh;
+    }
+
+    #edit-btn, #add-tones-btn.active {
+        width: 11vw;
+        height: 11vw;
+        margin-right: 15px;
+    }
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 430px) and (max-width: 767px) {
+    /**/
+    .tone-button {
+        height: 15vw;
+    }
+}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {
+    /**/
+    .tone-button {
+        height: 23vw;
+
+    }
+
+    .tone-button span {
+        font-size: 1.90vw;
+    }
+}
