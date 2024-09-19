@@ -1,3 +1,35 @@
+// let audio = new AudioControler();
+
+// function getFileName(string) {
+//     let index = string.lastIndexOf("/")
+//     return string.substring(index + 1).toLowerCase()
+// }
+
+// function playTone(audioPath) {
+//     if (!audio.paused()) {
+//         console.log("Is Playing");
+//         return;
+//     } else if (getFileName(audio.src()) === getFileName(audioPath) && audio.paused()) {
+//         //console.log(`Play! src is ${audioPath}`);
+//         audio.setCurrentTime(0);
+//         audio.play();
+//         return;
+//     }
+
+//     audio.src(audioPath);
+// }
+
+// audio.addEventListener('canplay', (event) => {
+//     event.target.play()
+// })
+
+// document.addEventListener('keydown', (e) => {
+//     if (e.code === 'Space') {
+//         e.preventDefault();
+//         audio.pause();
+//     }
+// });
+
 console.clear();
 
 
@@ -12,7 +44,7 @@ const pannerControl = document.querySelector('#panner');
 
 fileElement.addEventListener("change", (e) => {
     audioControler.initialize()
-    audioControler.setSource(URL.createObjectURL(e.target.files[0]))
+    audioControler.src(URL.createObjectURL(e.target.files[0]))
 })
 
 volumeControl.addEventListener(
@@ -32,15 +64,12 @@ pannerControl.addEventListener(
 );
 
 function playpause() {
-    if (audioControler.audioElement.paused) {
+    if (audioControler.paused()) {
         audioControler.play()
     } else {
         audioControler.pause()
     }
 }
-
-const canvas = document.getElementById('audioCanvas');
-const canvasCtx = canvas.getContext('2d');
 
 const analyserCanvas = document.getElementById('analyserCanvas');
 const canvasCtxAnalyser = analyserCanvas.getContext('2d');
@@ -52,7 +81,6 @@ const dec = 0.8
 function draw() {
     canvasCtx.fillStyle = '#000000';
     canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-    const analyserData = audioControler.getByteFrequencyData()
     const dataL = audioControler.getByteFrequencyDataL()
     const dataR = audioControler.getByteFrequencyDataR()
 
@@ -112,15 +140,7 @@ function draw() {
             lineOld.r += dec
         }
     }
-    /* SECOND CANVAS */
-    canvasCtxAnalyser.clearRect(0, 0, analyserCanvas.width, analyserCanvas.height);
-    canvasCtxAnalyser.fillStyle = '#ffffff';
-    for (let i = 0; i < analyserData.length; i++) {
-        let barw = analyserCanvas.width / analyserData.length
-        let barh = audioControler.map(analyserData[i], 0, 255, 3, analyserCanvas.height)
-        canvasCtxAnalyser.fillRect(barw * i, analyserCanvas.height - barh, barw, barh)
-    }
-    /* ============== */
+
     requestAnimationFrame(draw)
 }
 

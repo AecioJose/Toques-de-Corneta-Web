@@ -1,6 +1,7 @@
 class AudioControler {
     constructor() {
         this.audioElement = new Audio()
+        this.audioElement.crossOrigin = "anonymous"
         this.vol = {
             min: 0,
             max: 2,
@@ -67,32 +68,6 @@ class AudioControler {
         this.leftChannel.getByteFrequencyData(this.leftDataArray)
         return this.leftDataArray
     }
-
-    getMedia(dataarray) {
-        if (dataarray.length === 0) {
-            return 0
-        }
-
-        const sum = dataarray.reduce((acc, num) => acc + num, 0);
-
-        return sum / dataarray.length;
-    }
-
-    constrain (n, low, high) {
-        return Math.max(Math.min(n, high), low)
-    }
-
-    map (n, start1, stop1, start2, stop2, withinBounds) {
-        const newval = (n - start1) / (stop1 - start1) * (stop2 - start2) + start2
-        if (!withinBounds) {
-          return newval
-        }
-        if (start2 < stop2) {
-          return this.constrain(newval, start2, stop2)
-        } else {
-          return this.constrain(newval, stop2, start2)
-        }
-      }
       
     /* AUDIO FUNCTIONS */
     play() {
