@@ -5,6 +5,7 @@ export function wrapper(audio) {
     let w = 30
     let h = HEIGHT
     let x = WIDTH / 6
+    let bh = 6 //Value for incline bar
 
     strokeWeight(0.3)
 
@@ -13,12 +14,12 @@ export function wrapper(audio) {
         vertex(xx, yy)
         vertex(xx, hh)
         vertex(xx + ww, hh)
-        vertex(xx + ww + ww / 2, hh - 10)
-        vertex(xx + ww + ww / 2, yy - 10)
-        vertex(xx + ww / 2, yy - 10)
+        vertex(xx + ww + ww / 2, hh - bh)
+        vertex(xx + ww + ww / 2, yy - bh)
+        vertex(xx + ww / 2, yy - bh)
         vertex(xx, yy)
         vertex(xx + ww, yy)
-        vertex(xx + ww + ww / 2, yy - 10)
+        vertex(xx + ww + ww / 2, yy - bh)
         vertex(xx + ww, yy)
         vertex(xx + ww, hh)
         vertex(xx + ww, yy)
@@ -34,7 +35,7 @@ export function wrapper(audio) {
             Math.abs(
                 map(
                     arrayMedia(audio.getByteFrequencyDataL()),
-                    255 - 10, -5,
+                    255 - bh, -(bh/2),
                     0, HEIGHT
                 )), w, h)
         stroke("#ffffff")
@@ -44,7 +45,7 @@ export function wrapper(audio) {
             Math.abs(
                 map(
                     arrayMedia(audio.getByteFrequencyDataR()),
-                    255 - 10, -5,
+                    255 - bh, -(bh/2),
                     0, HEIGHT
                 )), w, h)
 
