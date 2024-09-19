@@ -1,5 +1,8 @@
 const canvas = document.getElementById('canvas');
 const fileElement = document.querySelector("#file");
+const volumeControl = document.querySelector('#volume');
+const pannerControl = document.querySelector('#panner');
+const timeControl = document.querySelector('#time');
 const canvasCtx = canvas.getContext('2d');
 const audioControler = new AudioControler()
 let x, y, w, h
@@ -13,12 +16,37 @@ canvasCtx.lineWidth = 0.3
 canvasCtx.strokeStyle = "#ffffff"
 
 audioControler.addEventListener("loadeddata", (e) => {
+    timeControl.max = e.target.duration
     e.target.play()
+})
+
+audioControler.addEventListener("timeupdate", (e) => {
+    timeControl.value = e.target.currentTime
 })
 
 fileElement.addEventListener("change", (e) => {
     audioControler.initialize()
     audioControler.src(URL.createObjectURL(e.target.files[0]))
+})
+
+volumeControl.addEventListener(
+    "input",
+    (event) => {
+        audioControler.setVol(event.target.value)
+    },
+    false
+);
+
+pannerControl.addEventListener(
+    "input",
+    (event) => {
+        audioControler.setPan(event.target.value)
+    },
+    false
+);
+
+timeControl.addEventListener("input", (e) => {
+    audioControler.currentTime(e.target.value)
 })
 
 function playOrpause() {
