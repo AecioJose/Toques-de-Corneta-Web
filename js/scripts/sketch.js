@@ -1,19 +1,18 @@
-const canvas = document.getElementById('canvas');
 const fileElement = document.querySelector("#file");
 const volumeControl = document.querySelector('#volume');
 const pannerControl = document.querySelector('#panner');
 const timeControl = document.querySelector('#time');
-const canvasCtx = canvas.getContext('2d');
 const audioControler = new AudioControler()
-let x, y, w, h
+let x, y, w, h;
+
+createCanvas(150, 300, "#canvas-area")
 
 w = 30
-h = canvas.height
-y = canvas.height - 5
-x = canvas.width/6
+h = HEIGHT
+y = HEIGHT - 5
+x = WIDTH / 6
 
-canvasCtx.lineWidth = 0.3
-canvasCtx.strokeStyle = "#ffffff"
+strokeWeight(0.3)
 
 audioControler.addEventListener("loadeddata", (e) => {
     timeControl.max = e.target.duration
@@ -57,31 +56,10 @@ function playOrpause() {
     }
 }
 
+//DEBUG FUNCTION
 function init() {
     audioControler.initialize()
-    audioControler.src("audio.mp3")
-}
-
-function background(color) {
-    fill(color)
-    canvasCtx.fillRect(0, 0, canvas.width, canvas.height)
-}
-
-function fill(color) {
-    canvasCtx.fillStyle = color
-}
-
-function vertex(x, y) {
-    canvasCtx.lineTo(x, y)
-}
-
-function beginShape() {
-    canvasCtx.beginPath()
-}
-
-function endShape() {
-    canvasCtx.closePath()
-    canvasCtx.fill()
+    audioControler.src("sounds/nefex.m4a")
 }
 
 function create3DBar(xx, yy, ww, hh) {
@@ -102,15 +80,15 @@ function create3DBar(xx, yy, ww, hh) {
 }
 
 function draw() {
-    //background("#ffffff46");
-    canvasCtx.clearRect(0, 0, canvas.width, canvas.height)
+    //background("#ffffff");
+    backgroundClear()
     fill("#2510E7")
     create3DBar(x,
         Math.abs(
             map(
-                getMedia(audioControler.getByteFrequencyDataL()),
+                arrayMedia(audioControler.getByteFrequencyDataL()),
                 255 - 10, -5,
-                0, canvas.height
+                0, HEIGHT
             )), w, h)
     canvasCtx.stroke()
 
@@ -118,40 +96,13 @@ function draw() {
     create3DBar(x * 3,
         Math.abs(
             map(
-                getMedia(audioControler.getByteFrequencyDataR()),
+                arrayMedia(audioControler.getByteFrequencyDataR()),
                 255 - 10, -5,
-                0, canvas.height
+                0, HEIGHT
             )), w, h)
 
-    canvasCtx.stroke()
+    stroke("#ffffff")
     requestAnimationFrame(draw)
 }
-
-/* Math Functions */
-
-
-function getMedia(dataarray) {
-    if (dataarray.length === 0) {
-        return 0
-    }
-
-    const sum = dataarray.reduce((acc, num) => acc + num, 0);
-
-    return sum / dataarray.length;
-}
-
-function map (n, start1, stop1, start2, stop2, withinBounds) {
-    const newval = (n - start1) / (stop1 - start1) * (stop2 - start2) + start2
-    if (!withinBounds) {
-      return newval
-    }
-    if (start2 < stop2) {
-      return Math.max(Math.min(newval, stop2), start2)
-    } else {
-      return Math.max(Math.min(newval, start2), stop2)
-    }
-  }
-
-/*================*/
 
 draw()

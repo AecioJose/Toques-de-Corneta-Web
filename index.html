@@ -6,8 +6,8 @@
     <title>Web Audio API examples: Basics</title>
     <meta name="description" content="Audio basics demo for Web Audio API" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="stylesheet" href="style.css">
-    <script src="audioControler.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/libs/Utils.min.js"></script>
 </head>
 
 <body>
@@ -26,15 +26,13 @@
                 <label for="panner">PAN</label>
 
             </section>
-            <canvas id="canvas" width="150" height="300"></canvas>
+            <div id="canvas-area"></div>
             <input type="range" id="time" min="0" value="0">
             <button onclick="init()">LOAD LOCAL SOUND</button>
             <button onclick="playOrpause()">PLAY/PAUSE</button>
         </div>
-        <!-- boombox-body -->
     </div>
-    <script src="sketch.js"></script>
-    <!-- <script src="script.js"></script> -->
+    <script src="js/scripts/sketch.js"></script>
 </body>
 
 </html>
