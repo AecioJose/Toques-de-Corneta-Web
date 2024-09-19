@@ -56,7 +56,7 @@ function endShape() {
     canvasCtx.fill()
 }
 
-function create3D(xx, yy, ww, hh) {
+function create3DBar(xx, yy, ww, hh) {
     beginShape()
     vertex(xx, yy)
     vertex(xx, hh)
@@ -77,7 +77,7 @@ function draw() {
     //background("#ffffff46");
     canvasCtx.clearRect(0, 0, canvas.width, canvas.height)
     fill("#2510E7")
-    create3D(x,
+    create3DBar(x,
         Math.abs(
             map(
                 getMedia(audioControler.getByteFrequencyDataL()),
@@ -87,7 +87,7 @@ function draw() {
     canvasCtx.stroke()
 
     fill("#E72210")
-    create3D(x * 3,
+    create3DBar(x * 3,
         Math.abs(
             map(
                 getMedia(audioControler.getByteFrequencyDataR()),
