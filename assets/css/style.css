@@ -7,6 +7,10 @@
     text-decoration: none;
 }
 
+:root {
+    --header-height: 12vh;
+}
+
 body {
     list-style-type: none;
     font-family: "Spline Sans Mono", Arial, sans-serif;
@@ -22,29 +26,36 @@ body {
 }
 
 header {
+    display: flex;
+    align-items: center;
     width: 100%;
-    height: 7vh;
+    height: var(--header-height);
     background-color: #12120d;
     margin: 0;
-    padding: 20px 0;
-    display: flex;
+    padding: 2px 1px;
     justify-content: space-between;
     position: fixed;
     z-index: 1000;
+    min-width: 300px;
 }
 
 header span {
     font-family: "Black Ops One", Arial, sans-serif;
-    font-size: 2rem;
-    color: #FFF;
+    font-size: clamp(1em, 1em + 3vw, 2rem);
+    color: #ffffff;
+    text-align: center;
+    line-height: 0.9em;
+}
 
+header img {
+    height: 100%;
 }
 
 main {
     height: auto;
     min-height: 100vh;
-    padding-top: 8vh;
-    
+    padding-top: 0px;
+    min-width: 300px;
 }
 
 .sombra {
@@ -52,7 +63,7 @@ main {
     top: 20px;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: #00000066;
     z-index: 1;
 }
 
@@ -63,13 +74,16 @@ main {
     width: fit-content;
     align-items: center;
     justify-content: center;
-    height: 100%;
     padding: 0.2em 1em;
+    height: 100%;
     position: relative;
     z-index: 2;
 }
 
 .monitorPFL canvas {
+    /* border: 1px solid #ffffff; */
+    width: 40px;
+    height: 100%;
     image-rendering:optimizeQuality;
 }
 
@@ -83,7 +97,7 @@ main {
     position: relative;
     z-index: 2;
     gap: 8px;
-    padding-top: 8px;
+    padding-top: calc(var(--header-height) + 1vh);
 }
 
 .tone-button {
@@ -155,7 +169,7 @@ main {
     padding: 2px;
     white-space: pre-line;
     font-weight: 800;
-    font-size: 1.08vw;
+    font-size: clamp(0.5em, 0.1em + 1vw, 1em);
 }
 
 
@@ -295,7 +309,7 @@ main {
 
     }
 
-    .tone-button span {
+    /* .tone-button span {
         font-size: 1.90vw;
-    }
+    } */
 }
