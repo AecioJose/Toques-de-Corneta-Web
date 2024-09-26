@@ -19,6 +19,11 @@ audioControler.addEventListener("loadeddata", (e) => {
     e.target.play()
 })
 
+/*
+  let hue = map(y , 0, 300, 30, 130)
+  let hue2 = map(y2 , 0, 300, 30, 130)
+*/
+
 // audioControler.addEventListener("timeupdate", (e) => {
 //     timeControl.value = e.target.currentTime
 // })

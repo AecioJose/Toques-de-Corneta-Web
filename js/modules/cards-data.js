@@ -48,4 +48,6 @@ export const tones = [
     { id: 37, name: "Toque 37", image: "assets/images/cards/image.png", audio: "assets/audio/audio37.mp3" },
     { id: 38, name: "Toque 38", image: "assets/images/cards/image.png", audio: "assets/audio/audio38.mp3" },
     { id: 39, name: "Toque 39", image: "assets/images/cards/image.png", audio: "assets/audio/audio39.mp3" },
-    { id: 40, name: "Toque 40", image: "assets/images/cards/image.png", audio: "assets/audio/audio40.mp3" }]
+    { id: 40, name: "Toque 40", image: "assets/images/cards/image.png", audio: "assets/audio/audio40.mp3" },
+    { id: 41, name: "left and right channel verification", image: "", audio: "/sounds/left and right channel verification.mp3"} //DEBUG LINE
+]

@@ -60,17 +60,16 @@ main {
 /* monitorPFL */
 .monitorPFL {
     display: flex;
-    width: 100%;
+    width: fit-content;
     align-items: center;
     justify-content: center;
-    height: fit-content;
-    padding: 1em;
+    height: 100%;
+    padding: 0.2em 1em;
     position: relative;
     z-index: 2;
 }
 
 .monitorPFL canvas {
-    border: 1px solid #ffffff6b;
     image-rendering:optimizeQuality;
 }
 

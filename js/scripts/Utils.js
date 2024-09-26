@@ -205,6 +205,13 @@ Window.prototype.background = function (color) {
     this.canvasCtx.fillRect(0, 0, this.WIDTH, this.HEIGHT)
 }
 
+Window.prototype.gradient = function (x, y, w, h, hue) {
+	const grad = this.canvasCtx.createLinearGradient(x, y, x + w, y + h);
+     grad.addColorStop(0, `hsl(${hue}, 100%, 50%)`);
+     grad.addColorStop(1, "hsl(130, 100%, 50%)");
+    return grad
+}
+
 Window.prototype.backgroundClear = function () {
     this.canvasCtx.clearRect(0, 0, this.WIDTH, this.HEIGHT)
 }

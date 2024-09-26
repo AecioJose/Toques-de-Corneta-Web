@@ -1,13 +1,12 @@
 export function wrapper(audio) {
 
-    createCanvas(150, 150, ".monitorPFL")
-
-    let w = 30
+    createCanvas(65, 35, ".monitorPFL")
+    let w = 16
     let h = HEIGHT
-    let x = WIDTH / 6
-    let bh = 6 //Value for incline bar
+    let x = WIDTH / 6 - 5
+    let bh = 5 //Value for incline bar
 
-    strokeWeight(0.3)
+    strokeWeight(1)
 
     function create3DBar(xx, yy, ww, hh) {
         beginShape()
@@ -30,25 +29,24 @@ export function wrapper(audio) {
     function draw() {
         //background("#ffffff");
         backgroundClear()
-        fill("#2510E7")
-        create3DBar(x,
-            Math.abs(
-                map(
-                    arrayMedia(audio.getByteFrequencyDataL()),
-                    255 - bh, -(bh/2),
-                    0, HEIGHT
-                )), w, h)
+        let yL = map(
+            arrayMedia(audio.getByteFrequencyDataL()),
+            255 - bh, -(bh/2 + 1),
+            0, HEIGHT
+        )
+        let hueL = map(yL, 0, HEIGHT, 30, 130)
+        fill(gradient(x, yL, w, h, hueL))
+        create3DBar(x, Math.abs(yL), w, h)
         stroke("#ffffff")
 
-        fill("#E72210")
-        create3DBar(x * 3,
-            Math.abs(
-                map(
-                    arrayMedia(audio.getByteFrequencyDataR()),
-                    255 - bh, -(bh/2),
-                    0, HEIGHT
-                )), w, h)
-
+        let yR = map(
+            arrayMedia(audio.getByteFrequencyDataR()),
+            255 - bh, -(bh/2 + 1),
+            0, HEIGHT
+        )
+        let hueR = map(yR, 0, HEIGHT, 30, 130)
+        fill(gradient(x * 6, yR, w, h, hueR))
+        create3DBar(x * 6, Math.abs(yR), w, h)
         stroke("#ffffff")
         requestAnimationFrame(draw)
     }
