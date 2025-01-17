@@ -61,7 +61,7 @@ export function renderTones() {
                 <div class="editMoveCard-MoveIcon" alt="icone indicando que pode mover o card de lugar"></div> 
             </div>
             <div id="img${tone.id}" class="img-container"></div>
-            <span>${tone.name}</span>
+            <h3>${tone.name}</h3>
         `;
         const img = button.querySelector(`#img${tone.id}`)
         img.style.backgroundImage = `url('${tone.image}')`;

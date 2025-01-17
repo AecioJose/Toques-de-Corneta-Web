@@ -1,0 +1,247 @@
+header {
+    width: 100%;
+    height: var(--headerHeight);
+    background-color: #000;
+    padding: 0 1.5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+}
+
+
+header div {
+    height: var(--headerHeight);
+}
+
+header > div  {
+    display: flex;
+    align-items: center;
+    min-width: 19vw;
+}
+
+
+.title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+h1 {
+    font-size: 2.5vh;
+    font-family: "Black Ops One", Arial, sans-serif;
+    font-weight: 100;
+}
+
+h2 {
+    font-size: 1vh;
+}
+
+
+.center-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    /* background-color: red; */
+}
+
+.containerTheme {
+    display: flex;
+    align-items: center;
+
+    /* background-color: green; */
+    padding: 0 2vh;
+}
+
+#tema-label {
+    font-family: "Nunito";
+    font-size: 1.8vh;
+    margin-right: 0.5vh;
+}
+
+#dropdown-container {
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+#dropdown-label {
+    z-index: 3;
+    width: 20vh;
+    padding: 0.5vh; 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 15px;
+    background-color: #161515;
+    color: #ffffff;
+
+    font-family: "Nunito";
+    font-size: 1.8vh;
+    font-weight: bold;
+
+    -webkit-appearance: none;  /* Remove o estilo nativo do select no Safari */
+    -moz-appearance: none;     /* Remove o estilo nativo do select no Firefox */
+    appearance: none;          /* Remove o estilo nativo do select */
+
+    cursor: pointer;
+}
+
+#dropdown-label:hover {
+    background-color: #292929;
+}
+
+#themes {
+    width: 20vh;
+    z-index: 2;
+    background-color: #161515;
+    border-radius: 0 0 7px 7px;
+    box-shadow: 2px 5px 15px rgba(0, 0, 0, 1.5);
+
+    position: absolute;
+
+    margin-top: 30vh;
+    padding-top: 3vh;
+
+    display: none;
+    flex-direction: column;
+}
+
+
+
+#themes > li {
+    list-style: none;
+    padding: 1vh;
+
+    cursor: pointer;
+}
+#themes > li:hover {
+    background-color: #2b2929;
+}
+
+
+.container-mode {
+    /* background-color: blue; */
+    padding: 0 0 0 2vh;
+
+    display: flex;
+    align-items: center;
+}
+
+#container-button {
+    background-color: var(--slider-background);
+    width: 3vh;
+    height: 3vh;
+
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.container-mode > p{
+    margin-left: 3vh;
+    width: 17.5vh;
+
+    font-family: "Nunito";
+    font-size: 2.3vh;
+}
+
+#slideButton{
+    width: 6vh;
+    height: 3vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#circle1, #circle2, #circle3 {
+    aspect-ratio: 1/1;
+    height: 3vh;
+    border-radius: 50%;
+    
+    background-color: var(--slider-background);
+    transition: all 0.3s;
+}
+#circle1 {
+    margin-left: -1.5vh;
+}
+#circle3 {
+    box-shadow: 2px 5px 15px rgba(0, 0, 0, 1.5);
+    background-color: #4a4c50;
+    margin-left: -6vh;
+
+    transition: all 0.4s ease-out .2s;
+}
+
+
+.right-header-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#addCards {
+    background-color: rgba(255, 255, 255, 0.9);
+
+    font-family: sans-serif;
+    font-size: 2vh;
+    font-weight: 600;
+    color: #003006;
+
+    padding: 4px 12px;
+
+    border: none;
+    border-radius: 40px;
+
+    cursor: pointer;
+}
+
+#addCards:hover {
+    background-color: #ffffff;
+    color: #000000;
+    transition: height 0.3s ease;
+}
+
+.right-header-container > div {/*conteiner interrogaçao e circuclo*/
+    aspect-ratio: 1/1;
+    height: 4vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.question-mark {/*Interrogação para abrir o como funciona o site*/
+    height: 3vh;
+    aspect-ratio: 1/1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border: 1px solid #ffffff;
+
+    cursor: pointer;
+
+}
+
+.question-mark:hover {/*Aumentar circulo ao passar o mouse no circulo*/
+    height: 3.3vh;
+}
+
+.question-mark:hover span{/*Aumentar Interrogação ao passar o mouse no circulo*/
+    font-size: 2.3vh;
+}
+
+.question-mark > span {/*Interrogação*/
+    font-size: 2vh;
+}

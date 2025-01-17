@@ -8,23 +8,64 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/audio.css">
 </head>
 <body>
 
     <header>
-        <div class="monitorPFL">
-
+        <div>
+            <img style="margin-right: 30px; height: 6vh; " src="assets/images/icons/corneta.ico" alt="Imagem de corneta que representa a logo do site">
+            <div class="title">
+                <h1>Toques De Corneta</h>
+                <h2>Exército, Marinha, Aeronáutica e PM</h2>
+            </div>
+            
         </div>
-
-        
-        <span style="display: flex; flex-direction: row; align-items: center; justify-content: center;" >Toques De Corneta <img style="margin-left: 15px; width: 50px;" src="assets/images/icons/corneta.ico" alt="Minha Figura"> </span>
         
 
-        <div><!--Menuzinho de playlist com ultima opção de adicionar nova playlist-->
+        
+        <div class="center-header-container">
 
+            <div class="containerTheme"><!--Mudar Temas-->
+                <span id="tema-label">Tema:</span>
+                <div id="dropdown-container">
+                    <span id="dropdown-label">Escuro</span>
+                    <ul id="themes">
+                        <li data-value="Escuro">Escuro</li>
+                        <li data-value="Exército">Exército</li>
+                        <li data-value="Marinha">Marinha</li>
+                        <li data-value="Aeronáutica">Aeronáutica</li>
+                        <li data-value="Polícia Militar">Polícia Militar</li>
+                        <li data-value="Claro">Claro</li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="container-mode"><!--Slider modo com descrição-->
+                <div id="slideButton">
+                    <div id="container-button">
+                    <div id="circle1"></div>
+                    <div id="circle2"></div>
+                    <div id="circle3"></div>
+                </div>
+                </div>
+                
+                <p id="modeLabel">Normal</p>
+            </div>
+        </div>
+        
+
+        
+        <div class="right-header-container">
+            <button id="addCards">Adicionar Cartão +</button>
+            <div>
+                <div class="question-mark"><span>?</span></div>
+            </div>
+            
         </div>
     </header>
 
@@ -43,251 +84,7 @@
         </div>
         
     </main>
-    <!--
-    <script>
-        // Selecionando elementos do DOM
-        const buttonContainer = document.getElementById('button-container');
-        const addTonesBtn = document.getElementById('add-tones-btn');
-        const editBtnNchangeOrder = document.getElementById('edit-btn');
-        const changeOrderImg = document.getElementById('edit-img');
-
-        // Estados da aplicação
-        let isAddingTones = false;
-        let isChangingOrder = false;
-        let selectedTones = JSON.parse(localStorage.getItem('selectedTones')) || [];
-        let toneOrder = JSON.parse(localStorage.getItem('toneOrder')) || selectedTones.slice(); // Inicialmente, a ordem segue a seleção
-
-        let audioGlobal = new Audio();
-
-        audioGlobal.addEventListener('canplay', (event) => {
-            event.target.play()
-        })
-
-
-
-        // Dados dos toques (imagens e áudios) - Edite os caminhos conforme necessário
-        const tones = [
-            { id: 1, name: "Sentido", image: "assets/images/cards/sentido.png", audio: "assets/audio/sentido.mp3" },
-            { id: 2, name: "Descansar", image: "assets/images/cards/descansar.png", audio: "assets/audio/Descansar.mp3" },
-            { id: 3, name: "Direita Volver", image: "assets/images/cards/direitavolver.png", audio: "assets/audio/direita_volver.mp3" },
-            { id: 4, name: "Esquerda Volver", image: "assets/images/cards/esquerdavolver.png", audio: "assets/audio/esquerda_volver.mp3" },
-
-            { id: 5, name: "Meia Volta volver", image: "assets/images/cards/meiavoltavolver.png", audio: "assets/audio/Meia_Volta_volver.mp3" },
-
-            { id: 6, name: "Cobrir", image: "assets/images/cards/cobrir.png", audio: "assets/audio/cobrir.mp3" },
-            { id: 7, name: "Firme", image: "assets/images/cards/firme.png", audio: "assets/audio/firme.mp3" },
-            { id: 8, name: "Ultima Forma", image: "assets/images/cards/ultimaForma.png", audio: "assets/audio/ultima_forma.mp3" },
-            { id: 9, name: "À Vontade", image: "assets/images/cards/avontade.png", audio: "assets/audio/a_vontade.mp3" },
-            { id: 10, name: "Cessar à Vontade", image: "assets/images/cards/cessaravontade.png", audio: "assets/audio/cessarAvontade.mp3" },
-
-            { id: 11, name: "Ordinario Marche", image: "assets/images/cards/ordinarioMarche.png", audio: "assets/audio/ordinarioMarche.mp3" },
-            { id: 12, name: "Marcar Passo", image: "assets/images/cards/marcapasso.png", audio: "assets/audio/marcar_passo.mp3" },
-            { id: 13, name: "Alto", image: "assets/images/cards/alto.png", audio: "assets/audio/alto.mp3" },
-            
-            { id: 14, name: "Ombro Arma", image: "assets/images/cards/ombroarma.png", audio: "assets/audio/ombro_arma.mp3" },
-            { id: 15, name: "Cruzar Arma", image: "assets/images/cards/cruzararma.png", audio: "assets/audio/cruzar_arma.mp3" },
-            { id: 16, name: "Apresentar Arma", image: "assets/images/cards/apresentarArma.png", audio: "assets/audio/apresentar_arma.mp3" },
-            { id: 17, name: "Amar Baioneta", image: "assets/images/cards/armarbaioneta.png", audio: "assets/audio/Armar_Baioneta.mp3" },
-            { id: 18, name: "Desarmar Baioneta", image: "assets/images/cards/desarmarbaioneta.png", audio: "assets/audio/Desarmar_Baioneta.mp3" },
-            { id: 19, name: "Descansar Arma", image: "assets/images/cards/descansararma.png", audio: "assets/audio/descansar_arma.mp3" },
-            { id: 20, name: "Arma Suspensa!!", image: "assets/images/cards/armasuspensa.png", audio: "assets/audio/audio24.mp3" },/*audio*/
-            { id: 21, name: "Arma Na Mão!!", image: "assets/images/cards/armanamao.png", audio: "assets/audio/audio25.mp3" },/*audio*/
-            { id: 22, name: "Ao Solo Arma!!", image: "assets/images/cards/aosoloarma.png", audio: "assets/audio/audio24.mp3" },/*audio*/
-            
-            { id: 23, name: "Alvorada", image: "assets/images/cards/alvorada.png", audio: "assets/audio/alvorada.mp3" },
-            
-            
-            { id: 24, name: "Hino do Brasil", image: "assets/images/cards/brasil.png", audio: "assets/audio/HinoNacionalBrasileiro.mp3" },
-            { id: 25, name: "Canção Do Exército", image: "assets/images/cards/cancaoexercito.jpg", audio: "assets/audio/CançãodoExército.mp3" },
-            { id: 26, name: "Hino a caxias", image: "assets/images/cards/caxias.jpg", audio: "assets/audio/hinoacaxias.mp3" },
-            { id: 27, name: "Incorporação da Bandeira", image: "assets/images/cards/incorpbandeira.png", audio: "assets/audio/IncorporaçãodaBandeira.mp3" },
-
-            
-            { id: 28, name: "Exórdio Juramento", image: "assets/images/cards/notamusical.png", audio: "assets/audio/ExórdioJuramento.mp4" },
-            { id: 29, name: "Quatro Dias de Viagem", image: "assets/images/cards/notamusical.png", audio: "assets/audio/QuatroDiasdeViagem.mp3" },
-            { id: 30, name: "Velhos Camaradas", image: "assets/images/cards/notamusical.png", audio: "assets/audio/Velhoscamaradas.mp3" },
-            { id: 31, name: "Avante Camaradas com Bumbo", image: "assets/images/cards/ordinarioMarcheDobrado.png", audio: "assets/audio/AvanteCamaradasComBumbo.mp3" },
-            { id: 32, name: "Batista de Melo", image: "assets/images/cards/ordinarioMarcheDobrado.png", audio: "assets/audio/batistademelo.mp3" },
-            { id: 33, name: "Hino Nacional Instrumental", image: "assets/images/cards/brasil.png", audio: "assets/audio/HinoNacional-Instrumental.mp3" },
-            { id: 34, name: "Continencia Bandeira + Apresentar Arma", image: "assets/images/cards/notamusical.png", audio: "assets/audio/Emcontinenciaabandeiracomapresentararma.mp3" },
-            { id: 35, name: "Bandeira Avançar", image: "assets/images/cards/notamusical.png", audio: "assets/audio/BandeiraAvancar.mp3" },
-            
-            { id: 36, name: "Toque 36", image: "assets/images/cards/img.png", audio: "assets/audio/audio36.mp3" },
-            { id: 37, name: "Toque 37", image: "assets/images/cards/image.png", audio: "assets/audio/audio37.mp3" },
-	        { id: 38, name: "Toque 38", image: "assets/images/cards/image.png", audio: "assets/audio/audio38.mp3" },
-            { id: 39, name: "Toque 39", image: "assets/images/cards/image.png", audio: "assets/audio/audio39.mp3" },
-            { id: 40, name: "Toque 40", image: "assets/images/cards/image.png", audio: "assets/audio/audio40.mp3" }]
-        
-
-        // Função para salvar seleção e ordem no localStorage
-        function saveToLocalStorage() {
-            localStorage.setItem('selectedTones', JSON.stringify(selectedTones));
-            localStorage.setItem('toneOrder', JSON.stringify(toneOrder));
-        }
-
-        // Função para renderizar os botões de toques
-        function renderTones() {
-            buttonContainer.innerHTML = '';
-
-            // Determinar quais toques serão exibidos
-            let tonesToDisplay = [];
-
-            if (isAddingTones) {
-                // Exibe todos os toques, com os não selecionados no final
-                tonesToDisplay = tones.filter(tone => !selectedTones.includes(tone.id));
-                tonesToDisplay = [...selectedTones.map(id => tones.find(t => t.id === id)), ...tonesToDisplay];
-            } else {
-                // Exibe apenas os toques na ordem definida
-                tonesToDisplay = toneOrder.map(id => tones.find(tone => tone.id === id));
-            }
-
-            tonesToDisplay.forEach(tone => {
-                const button = document.createElement('div');
-                button.classList.add('tone-button');
-                button.dataset.id = tone.id;
-
-                // Adicionar classe 'selected' se o toque estiver selecionado
-                if (selectedTones.includes(tone.id)) {
-                    button.classList.add('selected');
-                }
-
-                button.innerHTML = `
-                    <img src="${tone.image}" alt="${tone.name}">
-                    <span>${tone.name}</span>
-                `;
-
-                // Eventos de clique
-                if (isAddingTones) {
-                    button.addEventListener('click', () => toggleToneSelection(tone.id));
-                } else {
-                    button.addEventListener('click', () => playTone(tone.audio));
-                }
-
-                // Eventos de drag and drop
-                if (isChangingOrder) {
-                    button.setAttribute('draggable', true);
-                    button.addEventListener('dragstart', dragStart);
-                    button.addEventListener('dragover', dragOver);
-                    button.addEventListener('drop', drop);
-                    button.addEventListener('dragend', dragEnd);
-                }
-
-                buttonContainer.appendChild(button);
-            });
-        }
-
-
-        function playTone(audioPath) {
-
-            if (!audioGlobal.paused) {
-                console.log("Is Playing")
-                return
-            } else if (audioGlobal.src.substring(audioGlobal.src.lastIndexOf('/') + 1) === audioPath.substring(audioPath.lastIndexOf('/') + 1) && audioGlobal.paused) {
-                console.log(`Play! src is ${audioPath}`)
-                audioGlobal.currentTime = 0;
-                audioGlobal.play();
-                return
-            }
-            
-            audioGlobal.src = audioPath
-        }
-
-        
-        // Pausar o áudio ao pressionar a barra de espaço
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
-                event.preventDefault();
-                audioGlobal.pause();
-            }
-        });
-
-
-        // Função para alternar a seleção de um toque
-        function toggleToneSelection(toneId) {
-            if (selectedTones.includes(toneId)) {
-                selectedTones = selectedTones.filter(id => id !== toneId);
-                toneOrder = toneOrder.filter(id => id !== toneId);
-            } else {
-                selectedTones.push(toneId);
-                toneOrder.splice(selectedTones.length - 1, 0, toneId); // Move para o final dos selecionados
-            }
-
-            renderTones();
-            saveToLocalStorage();
-        }
-
-        // Variáveis para drag and drop
-        let draggedToneId = null;
-
-        function dragStart(e) {
-            draggedToneId = Number(e.currentTarget.dataset.id);
-            e.currentTarget.classList.add('dragging');
-        }
-
-        function dragOver(e) {
-            e.preventDefault();
-            const target = e.currentTarget;
-            const targetToneId = Number(target.dataset.id);
-
-            if (draggedToneId === targetToneId) return;
-
-            const draggedIndex = toneOrder.indexOf(draggedToneId);
-            const targetIndex = toneOrder.indexOf(targetToneId);
-
-            toneOrder.splice(draggedIndex, 1);
-            toneOrder.splice(targetIndex, 0, draggedToneId);
-
-            renderTones();
-        }
-
-        function drop(e) {
-            e.currentTarget.classList.remove('dragging');
-            saveToLocalStorage();
-        }
-
-        function dragEnd(e) {
-            e.currentTarget.classList.remove('dragging');
-            saveToLocalStorage();
-        }
-
-        // Botoes de editar/mudar posição e adicionar toques
-        addTonesBtn.addEventListener('click', () => {
-            isAddingTones = !isAddingTones;
-            if (isAddingTones) {
-                isChangingOrder = false;
-                editBtnNchangeOrder.style.display = 'none';
-                addTonesBtn.classList.add('active');
-                addTonesBtn.innerHTML = '<img style="width: 65%; height: auto;" src="/assets/images/icons/white-check.png">';
-            } else {
-                isChangingOrder = true;
-                addTonesBtn.classList.remove('active');
-                addTonesBtn.innerHTML = 'Adicionar Toques <span style="font-size: 3vw; margin-left: 0.5vw;">+</span>';
-                editBtnNchangeOrder.style.display = 'inline-block';
-            }
-            renderTones();
-        });
-
-        editBtnNchangeOrder.addEventListener('click', () => {
-            isChangingOrder = !isChangingOrder;
-            if (isChangingOrder) {
-                isAddingTones = false;
-                addTonesBtn.style.display = 'none';
-                editBtnNchangeOrder.classList.add('active');
-                changeOrderImg.src = "/assets/images/icons/white-check.png";
-                addTonesBtn.style.display = 'flex';
-            } else {
-                editBtnNchangeOrder.classList.remove('active');
-                changeOrderImg.src = "/assets/images/icons/pencil.png";
-                addTonesBtn.style.display = 'none';
-            }
-            renderTones();
-        });
-
-        // Renderizar toques na inicialização
-        renderTones();
-    </script>
-    -->
-
+    <script  src="/js/modules/header-actions.js"></script>
     <script type="module" src="/js/main.js"></script>
 
 
