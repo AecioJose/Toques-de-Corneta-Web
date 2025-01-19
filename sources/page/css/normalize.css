@@ -49,3 +49,17 @@
     /*sizes*/
     --headerHeight: 5vh;
 }
+
+h1, h2 {
+    color: #fff;
+}
+
+p, li {
+    color: #fff;
+    font-family: "Roboto";
+}
+
+span {
+    color: #fff;
+    font-family: "Nunito";
+}

@@ -1,0 +1,173 @@
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 12vh;
+    background-color: black;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1vw;
+
+    max-height: 87px;
+}
+
+footer > div {
+    height: 9vh;
+    width: 32vw;
+    max-height: 60px;
+    /* background-color: red; */
+}
+.foot-containerLeft {
+    display: flex;
+}
+
+
+#footerCardImage {
+    height: 90%;
+    aspect-ratio: 1.06/1;
+    border-radius: 8%;
+    margin-right: 12px;
+    background-color: rgb(221, 29, 163);
+}
+
+.footerCardTextContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#footerCardName {
+    font-family: "Nunito";
+    font-size: 0.875rem;
+    margin-bottom: 0.5%;
+}
+
+#footerCardOrigin {
+    font-family: "Nunito";
+    color: #b3b3b3;
+    font-size: 0.75rem;
+}
+
+
+.foot-containerCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0 1%;
+}
+
+.foot-containerCenterHigh, .foot-containerCenterLow {
+    width: 100%;
+    /* background-color: green; */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.foot-containerCenterHigh {
+    display: flex;
+    justify-content: center;
+}
+
+#playPauseIcon {
+    aspect-ratio: 1/1;
+    height: 33px;
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+
+#timeFinal, #timeActual{
+    font-size: 0.75rem;
+}
+
+#progressBar, #audioBar {
+    cursor: pointer;
+    background-color: #b3b3b3;
+    border-radius: 2px;
+    width: 100%;
+    height: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+#progressBar::before, #audioBar::before {
+    content: "";
+    position: absolute;
+    border-radius: 4px;
+    width: 50%;
+    height: 100%;
+    background-color: #ffffff; 
+}
+
+.audioContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    width: 111px;
+    height: 100%;
+}
+
+.foot-containerRight {
+    display: flex;
+    align-items: end;
+    gap: 15px;
+}
+
+#PlaylistContainer {
+    /* background-color: #0039d6; */
+
+    display: flex;
+    flex-direction: column-reverse;
+
+    /* flex-grow: 1; */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    margin-bottom: 6px;
+}
+
+#playlistLabel {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    border-radius: 4px;
+    padding: 3px 10px;
+
+    background-color: #161616;
+}
+
+#playlistLabel > p {
+    background-color: green;
+}
+
+#playlists {
+    display: none;
+    background-color: #161616;
+    padding: 5px 0 13px 0;
+    margin-bottom: -10px;
+    border-radius: 7px 7px 0 0;
+
+    flex-direction: column;
+}
+
+#playlists > li {
+    list-style: none;
+    padding: 6px 8px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#playlists > li:hover {
+    background-color: #2b2929;
+}
+
+#audioBar {
+    width: 95px;
+}
