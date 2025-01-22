@@ -1,0 +1,51 @@
+*,
+*:after,
+*:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+
+:root {
+    /*Colors*/
+    --background: var(--background-escuro);
+    --card: var(--card-escuro);
+    --text: var(--text-escuro);
+    --border: var(--border-escuro);
+
+    --background-exercito: #242c00;
+    --background-marinha: #0c0c33;
+    --background-aeronautica: #222b3f;
+    --background-policiamilitar: #09086f;
+    --background-escuro: #121212;
+    --background-claro: #d1d1cf;
+
+    --card-exercito: #8b5618;
+    --card-marinha: #dbdbdb;
+    --card-aeronautica: #bac3eb;
+    --card-policiamilitar: #e2e1d8;
+    --card-escuro: #1f1f1f;
+    --card-claro: #f2f2f2;
+
+    --border-exercito: #8b5618;
+    --border-marinha: #f8b227;
+    --border-aeronautica: #a3a3a3;
+    --border-policiamilitar: #f1080b;
+    --border-escuro: #1f1f1f;
+    --border-claro: #f2f2f2;
+
+    --text-exercito: #ececec;
+    --text-marinha: #000;
+    --text-aeronautica: #35353f;
+    --text-policiamilitar: #080808;
+    --text-escuro: #dadada;
+    --text-claro: #000;
+
+
+    --slider-background: #1f1f1f;
+
+    /*sizes*/
+    --headerHeight: 5vh;
+}
