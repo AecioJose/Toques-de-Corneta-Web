@@ -1,8 +1,7 @@
 # Toques De Corneta 🎺
- Versão Web 🌐  [Clique aqui para acessar!](https://toques-de-corneta.vercel.app/)
-<br><br> 
-
-
+ Versão Web 🌐  <a href="https://www.toquesdecorneta.com.br/" target="_blank" rel="noopener noreferrer">Clique aqui para acessar!</a>
+ 
+<br>
 
 **Toques de Corneta Desktop** é um software **simples e eficiente** desenvolvido para simular toques de corneta 🎺, criado com o intuito de auxiliar as **Forças Armadas** e **Forças Auxiliares** em treinamentos de ordem unida e cerimônias formais, como formaturas.
 
